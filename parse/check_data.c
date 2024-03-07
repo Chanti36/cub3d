@@ -1,0 +1,104 @@
+
+#include "../cub.h"
+
+static int fill_texture(t_game *game, char *str)
+{
+	char **data;
+	data = ft_split(str, ' ');
+	if (!data)
+		return (1);
+	if (!data[1])
+		return (free(data), 1);
+	if (ft_strncmp(str, "NO", 2))
+		game->n_texture = data[1];
+	if (ft_strncmp(str, "SO", 2))
+		game->s_texture = data[1];
+	if (ft_strncmp(str, "WE", 2))
+		game->w_texture = data[1];
+	if (ft_strncmp(str, "EA", 2))
+		game->e_texture = data[1];
+	free_strs(data);
+	return (0);
+}
+
+static int fill_color(t_game *game, char *str)
+{
+	char **data;
+	char **color_vals;
+	int error_flag;
+
+	data = ft_split(str, ' ');
+	error_flag = 0;
+	if (!data)
+		return (1);
+	if (!data[1])
+		return (free_strs(data), 1);
+	color_vals = ft_split(data[1], ',');
+	if (ft_strncmp(str, "F", 1))
+	{
+		game->floor_color.R = ft_atoi(color_vals[0]);
+		game->floor_color.G = ft_atoi(color_vals[1]);
+		game->floor_color.B = ft_atoi(color_vals[2]);
+	}
+	if (ft_strncmp(str, "C", 1))
+	{
+		game->celing_color.R = ft_atoi(color_vals[0]);
+		game->celing_color.G = ft_atoi(color_vals[1]);
+		game->celing_color.B = ft_atoi(color_vals[2]);
+	}
+	return (free_strs(data), free_strs(color_vals), 0);
+}
+
+static int fill_data(t_game *game, char *str)
+{
+	if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2) || \
+		!ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
+	{
+		if (fill_texture(game, str) == 1)
+			return (1);
+	}
+	else if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1))
+	{
+		if (fill_color(game, str) == 1)
+			return (1);
+	}
+	return (0);
+}
+
+static int check_fill(t_game *game)
+{
+	if ((game->celing_color.R < 0 || game->celing_color.R > 255) || \
+		(game->celing_color.G < 0 || game->celing_color.G > 255) || \
+		(game->celing_color.B < 0 || game->celing_color.B > 255))
+		return (1);
+	if ((game->floor_color.R < 0 || game->floor_color.R > 255) || \
+		(game->floor_color.G < 0 || game->floor_color.G > 255) || \
+		(game->floor_color.B < 0 || game->floor_color.B > 255))
+		return (1);
+	if (!(game->n_texture) || \
+		!(game->s_texture) || \
+		!(game->e_texture) || \
+		!(game->w_texture))
+		return (1);
+	return (0);
+}
+
+
+void check_data(t_gnl *str_map, t_game *game)
+{
+	t_gnl *i;
+
+	i = str_map;
+	while (i)
+	{
+		if (fill_data(game, i->content) == 1)
+			exit (1);
+		i = i->next;
+	}
+	if (check_fill(game) == 1)
+	{
+		printf("WRONG DATA\n");
+		exit (1);
+	}
+	printf("NICE DATA\n");
+}
