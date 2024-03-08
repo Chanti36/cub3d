@@ -6,7 +6,7 @@
 /*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:23:13 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/07 16:39:40 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/08 12:05:16 by sgil-moy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int main(int argc, char **argv)
 		return (printf("BAD INPUT\n"), 1);
 	parse(argv[1], &game);
 
-	game.player_x = 27;
-	game.player_y = 11;
+	game.player.x = 27;
+	game.player.y = 11;
 	
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "joego pero muuy guapo");

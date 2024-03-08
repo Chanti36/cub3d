@@ -15,6 +15,7 @@ SRCS = 	main.c							\
 		parse/gnl/get_next_line.c 		\
 		parse/gnl/get_next_line_utils.c	\
 		render/render.c					\
+		render/render_math.c			\
 		render/raycast.c				\
 
 		
@@ -26,7 +27,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME) 
 
 $(NAME): $(OBJS) libft/libft.a
-	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME) -Llibft/ -lft
+	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME) -Llibft/ -lft -lm
 
 libft/libft.a:
 	make -C libft/
@@ -43,7 +44,6 @@ fclean: clean
 	make -C libft/ fclean
 
 re: fclean $(NAME)
-	make -C libft/ re
 
 bonus: $(NAME)
 

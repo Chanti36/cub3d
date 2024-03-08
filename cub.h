@@ -6,6 +6,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
 
 # include "libft/libft.h"
 
@@ -26,6 +27,12 @@ enum
 	KEY_UP		= 126
 };
 
+typedef struct s_vec2
+{
+	int x;
+	int y;
+}t_vec2;
+
 typedef struct s_gnl
 {
 	char			*content;
@@ -38,6 +45,15 @@ typedef struct s_color
 	int G;
 	int B;
 }t_color;
+
+//_____________________________________________________________
+
+typedef struct s_player
+{
+	int x;
+	int y;
+	float a;
+}t_player;
 
 typedef struct s_game
 {
@@ -56,8 +72,7 @@ typedef struct s_game
 	int max_y;
 	char **map;
 
-	int player_x;
-	int player_y;
+	t_player player;
 }t_game;
 
 
@@ -77,8 +92,12 @@ int	key_hook(int keycode, t_game *game);
 int	close_win(t_game *game);
 
 //Render
-int	render(t_game *game);
+int		render(t_game *game);
 void	render_raycast(t_game *game);
+
+//Render Math
+t_vec2	find_vector(t_game *game, int player_a);
+float lerp(float a, float b, float f);
 
 //gnl
 char	*get_next_line(int fd);

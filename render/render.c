@@ -6,12 +6,36 @@ static int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-static void draw_map(t_game *game)
+static void draw_minimap_tile(int x, int y, t_game *game)
+{
+	int	i_x;
+	int	i_y;
+
+	i_y = 0;
+	while (i_y < 10)
+	{
+		i_x = 0;
+		while (i_x < 10)
+		{
+			if (game->map[y][x] == '1')
+				mlx_pixel_put(game->mlx, game->win, i_x + 10 + (x * 10), \
+				i_y + 10 + (y * 10), create_trgb(0, 255, 255, 255));
+			else if (game->map[y][x] == '0')
+				mlx_pixel_put(game->mlx, game->win, i_x + 10 + (x * 10), \
+				i_y + 10 + (y * 10), create_trgb(0, 0, 0, 0));
+			else if (game->map[y][x] != ' ')
+				mlx_pixel_put(game->mlx, game->win, i_x + 10 + (x * 10), \
+				i_y + 10 + (y * 10), create_trgb(0, 255, 0, 0));
+			i_x++;
+		}
+		i_y++;
+	}
+}
+
+static void draw_minimap(t_game *game)
 {
 	int	x;
 	int	y;
-	int i_x;
-	int i_y;
 
 	y = 0;
 	while (game->map[y])
@@ -19,23 +43,7 @@ static void draw_map(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-
-			i_y = 0;
-			while (i_y < 10)
-			{
-				i_x = 0;
-				while (i_x < 10)
-				{
-					if (game->map[y][x] == '1')
-						mlx_pixel_put(game->mlx, game->win, i_x + 10 + (x * 10), i_y + 10 + (y * 10), create_trgb(0, 255, 255, 255));
-					else if (game->map[y][x] == '0')
-						mlx_pixel_put(game->mlx, game->win, i_x + 10 + (x * 10), i_y + 10 + (y * 10), create_trgb(0, 0, 0, 0));
-					else if (game->map[y][x] != ' ')
-						mlx_pixel_put(game->mlx, game->win, i_x + 10 + (x * 10), i_y + 10 + (y * 10), create_trgb(0, 255, 0, 0));
-					i_x++;
-				}
-				i_y++;
-			}
+			draw_minimap_tile(x, y, game);
 			x++;
 		}
 		y++;
@@ -68,6 +76,6 @@ int	render(t_game *game)
 {
 	draw_bg(game);
 	render_raycast(game);
-	draw_map(game);
+	draw_minimap(game);
 	return  (0);
 }
