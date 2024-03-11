@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:23:13 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/09 13:29:03 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:00:50 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	exit_game(t_game *game)
 {
 	//free_map(scene->map.map);
 	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_image(game->mlx, game->image);
 	exit(1);
 }
 
@@ -33,6 +34,7 @@ int	main(int argc, char **argv)
 		return (printf("BAD INPUT\n"), 1);
 	parse(argv[1], &game);
 
+	game.image = mlx_new_image(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "joego pero muuy guapo");
 

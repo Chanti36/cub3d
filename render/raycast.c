@@ -1,10 +1,30 @@
 
 #include "../cub.h"
 
-static int	find_wall(t_game *game, int angle)
+static int	find_wall(t_game *game, float angle)
 {
-	(void) game;
-	angle = 0;
+	t_vec2	look_vec;
+	int		i;
+	int		j;
+	int look_dir;
+	// 123
+	// 4 5
+	// 678
+
+	//sacar el vector hacia donde miras
+	look_vec = find_vector(game, angle);
+	//hay que iterar por coseno y seno
+	while (i < game->max_x && j < game->max_y && i > 0 && j > 0)
+	{
+		i += look_vec.x;
+	}
+	//saber para que cuadrante miras
+
+	//avanzar en donde pille mas rapido hasta colisionar
+
+	//checkear colision
+
+
 	return (0);
 }
 

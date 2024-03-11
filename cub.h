@@ -58,12 +58,15 @@ typedef struct s_player
 	int		mouse_y;
 	float	speed;
 	float	v_speed;
+	float	max_speed;
 }	t_player;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	void		*image;
+
 
 	char		*n_texture;
 	char		*s_texture;
