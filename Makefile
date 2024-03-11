@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS =
 INCLUDES = -I/opt/X11/include -Imlx
 MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 

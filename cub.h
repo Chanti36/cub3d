@@ -10,9 +10,9 @@
 
 # include "libft/libft.h"
 
-#define BUFFER_SIZE 42
-#define WINDOW_WIDTH 1080
-#define WINDOW_HEIGHT 720
+# define BUFFER_SIZE 42
+# define WINDOW_WIDTH 1080
+# define WINDOW_HEIGHT 720
 
 enum
 {
@@ -29,9 +29,9 @@ enum
 
 typedef struct s_vec2
 {
-	int x;
-	int y;
-}t_vec2;
+	float	x;
+	float	y;
+}	t_vec2;
 
 typedef struct s_gnl
 {
@@ -41,40 +41,44 @@ typedef struct s_gnl
 
 typedef struct s_color
 {
-	int R;
-	int G;
-	int B;
-}t_color;
+	int	R;
+	int	G;
+	int	B;
+}	t_color;
 
 //_____________________________________________________________
 
 typedef struct s_player
 {
-	int x;
-	int y;
-	float a;
-}t_player;
+	float	x;
+	float	y;
+	float	a;
+	float	v_a;
+	int		mouse_x;
+	int		mouse_y;
+	float	speed;
+	float	v_speed;
+}	t_player;
 
 typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
+	void		*mlx;
+	void		*win;
 
-	char *n_texture;
-	char *s_texture;
-	char *e_texture;
-	char *w_texture;
+	char		*n_texture;
+	char		*s_texture;
+	char		*e_texture;
+	char		*w_texture;
 
-	t_color floor_color;
-	t_color celing_color;
+	t_color		floor_color;
+	t_color		celing_color;
 
-	int max_x;
-	int max_y;
-	char **map;
+	int			max_x;
+	int			max_y;
+	char		**map;
 
-	t_player player;
-}t_game;
-
+	t_player	player;
+}	t_game;
 
 void	exit_game(t_game *game);
 
@@ -88,8 +92,9 @@ void	check_map(t_gnl *str_map, t_game *game);
 void	check_map_walls(t_game *game);
 
 //Input
-int	key_hook(int keycode, t_game *game);
-int	close_win(t_game *game);
+int		key_hook(int keycode, t_game *game);
+int		mouse_hook(int x, int y, t_game *game);
+int		close_win(t_game *game);
 
 //Render
 int		render(t_game *game);
@@ -97,7 +102,7 @@ void	render_raycast(t_game *game);
 
 //Render Math
 t_vec2	find_vector(t_game *game, int player_a);
-float lerp(float a, float b, float f);
+float	lerp(float a, float b, float f);
 
 //gnl
 char	*get_next_line(int fd);

@@ -1,17 +1,17 @@
 
 #include "../cub.h"
 
-static int space_in_perimeter(char **map, int x, int y)
+static int	space_in_perimeter(char **map, int x, int y)
 {
-	if (map[y-1][x-1] == ' ' || \
-		map[y-1][x] == ' ' || \
-		map[y-1][x+1] == ' ' || \
-		map[y][x-1] == ' ' || \
+	if (map[y - 1][x - 1] == ' ' || \
+		map[y - 1][x] == ' ' || \
+		map[y - 1][x + 1] == ' ' || \
+		map[y][x - 1] == ' ' || \
 		map[y][x] == ' ' || \
-		map[y][x+1] == ' ' || \
-		map[y+1][x-1] == ' ' || \
-		map[y+1][x] == ' ' || \
-		map[y+1][x+1] == ' ')
+		map[y][x + 1] == ' ' || \
+		map[y + 1][x - 1] == ' ' || \
+		map[y + 1][x] == ' ' || \
+		map[y + 1][x + 1] == ' ')
 	{
 		if (map[y][x] != '1' && map[y][x] != ' ')
 			return (1);
@@ -39,7 +39,7 @@ static void	check_perimeter(t_game *game, int x, int y)
 	}
 }
 
-void check_map_walls(t_game *game)
+void	check_map_walls(t_game *game)
 {
 	int	y;
 	int	x;
@@ -56,6 +56,5 @@ void check_map_walls(t_game *game)
 		}
 		y++;
 	}
-
 	printf("WALLs guxi\n");
 }

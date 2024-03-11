@@ -17,7 +17,7 @@ static void	add_stack(char *line, t_gnl **list)
 {
 	t_gnl	*nodo;
 	t_gnl	*i;
-	
+
 	nodo = (t_gnl *) malloc (sizeof(t_gnl));
 	if (!nodo)
 		return ;
@@ -25,13 +25,13 @@ static void	add_stack(char *line, t_gnl **list)
 	nodo->next = NULL;
 	i = *list;
 	if (*list)
-    {
-        while (i->next)
-            i = i->next;
-        i->next = nodo;
-    }
-    else
-        *list = nodo;
+	{
+		while (i->next)
+			i = i->next;
+		i->next = nodo;
+	}
+	else
+		*list = nodo;
 }
 
 t_gnl	*get_file(char *file)
@@ -39,7 +39,7 @@ t_gnl	*get_file(char *file)
 	t_gnl	*list;
 	char	*line;
 	int		fd;
-	
+
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		exit(1);
@@ -53,4 +53,3 @@ t_gnl	*get_file(char *file)
 	}
 	return (list);
 }
-

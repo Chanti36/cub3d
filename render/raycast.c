@@ -1,25 +1,27 @@
 
 #include "../cub.h"
 
-static int find_wall(t_game *game, int angle)
+static int	find_wall(t_game *game, int angle)
 {
-	(void)game;
+	(void) game;
 	angle = 0;
-
 	return (0);
 }
 
-void render_raycast(t_game *game)
+void	render_raycast(t_game *game)
 {
-	(void)game;
 	int	x;
-	int angle;
+	int	angle;
 
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
-		//CUANDO SE RESETEA EN 360 ESTO FALLA
-		angle = lerp(game->player.a - 45, game->player.a + 45, x / WINDOW_WIDTH);
+		angle = lerp(game->player.a + 45, \
+		game->player.a - 45, x / WINDOW_WIDTH);
+		if (angle < 0)
+			angle += 360;
+		else if (angle >= 360)
+			angle -= 360;
 		find_wall(game, angle);
 		//render wall
 		x++;

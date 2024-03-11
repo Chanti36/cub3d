@@ -3,7 +3,8 @@
 
 static void	check_name(char *file)
 {
-	char *aux;
+	char	*aux;
+
 	aux = file + (ft_strlen(file) - 4);
 	if (ft_strncmp(aux, ".cub", 4) != 0)
 	{
@@ -15,7 +16,7 @@ static void	check_name(char *file)
 static void	free_list(t_gnl *list)
 {
 	t_gnl	*i;
-	
+
 	while (list)
 	{
 		i = list->next;
@@ -33,6 +34,5 @@ void	parse(char *file, t_game *game)
 	data = get_file(file);
 	check_data(data, game);
 	check_map(data, game);
-
 	free_list(data);
 }

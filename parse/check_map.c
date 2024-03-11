@@ -15,11 +15,13 @@ void	*free_map(char **map)
 	return (NULL);
 }
 
-void fill_map_line(t_gnl *str_map, char**new_map, int x, int i)
+void	fill_map_line(t_gnl *str_map, char**new_map, int x, int i)
 {
-	int j = 0;
-	int flag = 0;
+	int	j;
+	int	flag;
 
+	j = 0;
+	flag = 0;
 	while (j < x)
 	{
 		if (str_map->content[j] && str_map->content[j] != '\n' && flag != 1)
@@ -41,7 +43,7 @@ static char	**make_map(t_game *game, t_gnl *str_map, int x, int y)
 
 	i = 0;
 	game->max_x = x - 1;
-	game->max_y = y - 1;	
+	game->max_y = y - 1;
 	new_map = (char **)malloc(sizeof(char *) * y + 1);
 	if (!new_map)
 		return (NULL);
@@ -83,9 +85,9 @@ static void	create_map(t_gnl *str_map, t_game *game)
 
 static void	measure_map(t_gnl *str_map, t_game *game)
 {
-	t_gnl *i;
-	int j;
-	int	flag;
+	t_gnl	*i;
+	int		j;
+	int		flag;
 
 	i = str_map;
 	while (i)
@@ -94,10 +96,10 @@ static void	measure_map(t_gnl *str_map, t_game *game)
 		flag = 0;
 		while (i->content[j])
 		{
-			if (i->content[j] != '1'  && i->content[j] != '0'  && \
-			i->content[j] != 'N'  && i->content[j] != 'S'  && \
-			i->content[j] != 'E'  && i->content[j] != 'W'&& \
-			i->content[j] != '\n'  && i->content[j] != ' ')
+			if (i->content[j] != '1' && i->content[j] != '0' && \
+			i->content[j] != 'N' && i->content[j] != 'S' && \
+			i->content[j] != 'E' && i->content[j] != 'W' && \
+			i->content[j] != '\n' && i->content[j] != ' ')
 				flag = 1;
 			++j;
 		}
@@ -107,10 +109,10 @@ static void	measure_map(t_gnl *str_map, t_game *game)
 			break ;
 		i = i->next;
 	}
-	create_map(i, game);	
+	create_map(i, game);
 }
 
-static void check_map_char(t_game *game)
+static void	check_map_char(t_game *game)
 {
 	int	i;
 	int	j;
@@ -123,17 +125,20 @@ static void check_map_char(t_game *game)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] != '1'  && game->map[i][j] != '0'  && \
-			game->map[i][j] != 'N' && game->map[i][j] != 'S'  && \
-			game->map[i][j] != 'E' && game->map[i][j] != 'W'&& \
+			if (game->map[i][j] != '1' && game->map[i][j] != '0' && \
+			game->map[i][j] != 'N' && game->map[i][j] != 'S' && \
+			game->map[i][j] != 'E' && game->map[i][j] != 'W' && \
 			game->map[i][j] != ' ')
 			{
 				printf("caracter invalido\n");
 				exit (1);
 			}
-			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'  || \
+			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || \
 				game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
+				game->player.y = i;
+				game->player.x = j;
+				game->player.a = 0;
 				if (flag)
 				{
 					printf("caracter de personaje repetido\n");
@@ -149,10 +154,9 @@ static void check_map_char(t_game *game)
 
 void	check_map(t_gnl *str_map, t_game *game)
 {
-	//FILL MAP
-	int x;
-	int y;
-	
+	int	x;
+	int	y;
+
 	y = 0;
 	measure_map(str_map, game);
 	printf("-------------------------asdasd---------------------\n");
@@ -167,7 +171,7 @@ void	check_map(t_gnl *str_map, t_game *game)
 		printf("\n");
 		y++;
 	}
-	printf("-------------------------asdasd---------------------\n");	
+	printf("-------------------------asdasd---------------------\n");
 	check_map_char(game);
 	check_map_walls(game);
 }
