@@ -10,11 +10,8 @@ t_vec2	find_vector(t_game *game, float player_a)
 {
 	t_vec2	new_vec;
 
-	new_vec.x = game->player.x * cos(player_a);
-	new_vec.y = game->player.y * sin(player_a);
-	new_vec.x -= game->player.x;
-	new_vec.y -= game->player.y;
-	printf("VECTOR -> X = %f  Y= %f\n", new_vec.x, new_vec.y);
+	new_vec.x = cos(player_a);
+	new_vec.y = sin(player_a);
 	return (new_vec);
 }
 

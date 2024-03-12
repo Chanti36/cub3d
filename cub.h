@@ -102,9 +102,10 @@ int		close_win(t_game *game);
 //Render
 int		render(t_game *game);
 void	render_raycast(t_game *game);
+void	put_pixel_to_image(t_game *game, int x, int y,t_color color);
 
 //Render Math
-t_vec2	find_vector(t_game *game, int player_a);
+t_vec2	find_vector(t_game *game, float player_a);
 float	lerp(float a, float b, float f);
 
 //gnl

@@ -65,12 +65,12 @@ int	mouse_hook(int x, int y, t_game *game)
 		game->player.mouse_y = y;
 		return (0);
 	}
-	if (x < game->player.mouse_x)
-		move_cam(game, lerp(0, 10, \
-		(float)(x - game->player.mouse_x) / (float)WINDOW_WIDTH));
-	else
-		move_cam(game, -lerp(0, 10, \
-		-(float)(x - game->player.mouse_x) / (float)WINDOW_WIDTH));
+	//if (x < game->player.mouse_x)
+	//	move_cam(game, lerp(0, 10, \
+	//	(float)(x - game->player.mouse_x) / (float)WINDOW_WIDTH));
+	//else
+	//	move_cam(game, -lerp(0, 10, \
+	//	-(float)(x - game->player.mouse_x) / (float)WINDOW_WIDTH));
 	game->player.mouse_x = x;
 	game->player.mouse_y = y;
 	return (0);

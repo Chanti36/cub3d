@@ -1,62 +1,106 @@
 
 #include "../cub.h"
 
-static int	find_wall(t_game *game, float angle)
+static float	find_wall(t_game *game, float angle)
 {
-	t_vec2	look_vec;
-	int		i;
-	int		j;
-	int look_dir;
-	// 123
-	// 4 5
-	// 678
+	float	i;
+	float	j;
+	float	cosen;
+	float	sino;
 
-	//sacar el vector hacia donde miras
-	look_vec = find_vector(game, angle);
-	//hay que iterar por coseno y seno
-	while (i < game->max_x && j < game->max_y && i > 0 && j > 0)
+	cosen = cos(angle) / 10;
+	sino = -sin(angle) / 10;
+	//printf("angle: %f    cosen: %f\n", sino, cosen);
+	j = game->player.x;
+	i = game->player.y;
+
+	while (1)
 	{
-		i += look_vec.x;
+		if ((int)floor(i) % 64 == 0)
+		{
+			if(game->map[(int)floor(i) / 64][(int)floor(j) / 64] == '1' || \
+			game->map[(int)floor(i) / 64 + 1][(int)floor(j) / 64] == '1')
+			{
+				printf("x: %f         y:%f \n", j, i);
+				//printf("x = %d y = %d, char = %c || char+1 = %c \n", 
+				//(int)floor(j) / 64, 
+				//(int)floor(i) / 64, 
+				//game->map[(int)floor(i) / 64][(int)floor(j) / 64], 
+				//game->map[(int)floor(i) / 64 + 1][(int)floor(j) / 64]);
+				//return (((j - game->player.x) * 2) / (i - game->player.y));
+				return (sqrt(((j - game->player.x) * (j - game->player.x)) + ((i - game->player.y) * (i - game->player.y))));
+			}
+		}
+		if ((int)floor(j) % 64 == 0)
+		{
+			if (game->map[(int)floor(i) / 64][(int)floor(j) / 64] == '1' || \
+			game->map[(int)floor(i) / 64][(int)floor(j) / 64 + 1] == '1')
+			{
+				printf("x: %f         y:%f \n", j, i);
+					//printf("x = %d y = %d, char = %c || char+1 = %c \n",
+					// (int)floor(j) / 64,
+					//  (int)floor(i) / 64,
+					//   game->map[(int)floor(i) / 64][(int)floor(j) / 64],
+					//    game->map[(int)floor(i) / 64][(int)floor(j) / 64 + 1]);
+					return (sqrt(((j - game->player.x) * (j - game->player.x)) + ((i - game->player.y) * (i - game->player.y))));
+			}
+		}
+		i += sino;
+		j += cosen;
 	}
-	//saber para que cuadrante miras
+}
 
-	//avanzar en donde pille mas rapido hasta colisionar
+static void	render_wall(t_game *game, int x, int len)
+{
+	t_color	wall_color;
+	int		i_y;
+	int		size;
 
-	//checkear colision
-
-
-	return (0);
+	i_y = 0;
+	wall_color.R = 130;
+	wall_color.G = 240;
+	wall_color.B = 80;
+	size = WINDOW_HEIGHT - len;
+	while (i_y < WINDOW_HEIGHT)
+	{
+		if (i_y > size / 2 && i_y < WINDOW_HEIGHT - size / 2)
+			put_pixel_to_image(game, x, i_y, wall_color);
+		i_y++;
+	}
 }
 
 void	render_raycast(t_game *game)
 {
-	int	x;
-	int	angle;
+	int		x;
+	float	angle;
+	float	dist;
+	int		size;
+	int angle_lerp;
+
+
+	//dist = find_wall(game, 45.1);
+	//printf("dist = %f\n", dist);
 
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
-		angle = lerp(game->player.a + 45, \
-		game->player.a - 45, x / WINDOW_WIDTH);
+		//angle_lerp = -45 + ((x / WINDOW_WIDTH) * 90);
+		//angle = game->player.a + angle_lerp;
+
+		angle = lerp(game->player.a + 5, \
+		game->player.a - 5, (float)x / (float)WINDOW_WIDTH);
 		if (angle < 0)
 			angle += 360;
 		else if (angle >= 360)
 			angle -= 360;
-		find_wall(game, angle);
-		//render wall
+
+		dist = find_wall(game, angle);
+		if (dist != 0)
+		{
+			//printf("dist = %f\n", dist);
+			size = lerp(WINDOW_HEIGHT, WINDOW_HEIGHT / 20, dist / WINDOW_HEIGHT);
+			render_wall(game, x, dist);
+		}
 		x++;
 	}
 }
-
-/*
-2d check
-throw a ray based on x coord of screen and player angle and pos
-follow ray till it hits a wall || max dist
-use hit dist to determine wall height
-	check ray on intersections with tile borders to check if its inside a wall
-angle FOV = 90
-
-To rotate a vector, multiply it with the rotation matrix
-[ cos(a) -sin(a) ]
-[ sin(a)  cos(a) ]
-*/

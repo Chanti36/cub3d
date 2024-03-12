@@ -136,9 +136,9 @@ static void	check_map_char(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || \
 				game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player.y = i;
-				game->player.x = j;
-				game->player.a = 0;
+				game->player.y = i * 64;
+				game->player.x = j * 64;
+				game->player.a = 90;
 				if (flag)
 				{
 					printf("caracter de personaje repetido\n");
