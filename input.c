@@ -32,17 +32,21 @@
 
 void	move(t_game *game, int dir)
 {
-	(void)game;
+	if (game->player.speed < game->player.max_speed)
+		game->player.speed = 64;
+	else
+		(game->player.speed = game->player.max_speed);
 
-	game->player.speed += 50;
 	if (dir == 0)
-		game->player.v_speed = 90;
-	if (dir == 1)
-		game->player.v_speed = 180;
-	if (dir == 2)
-		game->player.v_speed = 270;
-	if (dir == 3)
 		game->player.v_speed = 0;
+	if (dir == 1)
+		game->player.v_speed = 90;
+	if (dir == 2)
+		game->player.v_speed = 180;
+	if (dir == 3)
+		game->player.v_speed = -90;
+	// printf("COORD y = %f  x = %f               ", game->player.y, game->player.x);
+	// printf("CASILLA y = %d  x = %d\n", (int)game->player.y / 64, (int)game->player.x / 64);
 }
 
 static void	move_cam(t_game *game, float spd)
@@ -52,13 +56,12 @@ static void	move_cam(t_game *game, float spd)
 		game->player.a += 360;
 	else if (game->player.a >= 360)
 		game->player.a -= 360;
-	printf("ANGULO: %f, VELOCIDAD: %f\n", game->player.a, spd);
 }
 
 int	mouse_hook(int x, int y, t_game *game)
 {
 	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
-		return (0);
+		return (game->player.mouse_x = 0, game->player.mouse_y = 0, 0);
 	if (!game->player.mouse_x && !game->player.mouse_y)
 	{
 		game->player.mouse_x = x;
@@ -78,7 +81,6 @@ int	mouse_hook(int x, int y, t_game *game)
 
 int	key_hook(int keycode, t_game *game)
 {
-	printf("%d\n", keycode);
 	if (keycode == KEY_W || keycode == KEY_UP)
 		move(game, 0);
 	if (keycode == KEY_A || keycode == KEY_LEFT)

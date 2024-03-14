@@ -136,8 +136,8 @@ static void	check_map_char(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || \
 				game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player.y = i * 64;
-				game->player.x = j * 64;
+				game->player.y = (i * 64) + 32;
+				game->player.x = (j * 64) + 32;
 				game->player.a = 90;
 				if (flag)
 				{
@@ -174,4 +174,16 @@ void	check_map(t_gnl *str_map, t_game *game)
 	printf("-------------------------asdasd---------------------\n");
 	check_map_char(game);
 	check_map_walls(game);
+	y = 0;
+	while (y < game->max_y)
+	{
+		x = 0;
+		while (x < game->max_x)
+		{
+			if (game->map[y][x] == ' ')
+				game->map[y][x] = '0';
+			x++;
+		}
+		y++;
+	}
 }

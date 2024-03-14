@@ -1,7 +1,7 @@
 
 #include "../cub.h"
 
-static float	find_wall(t_game *game, float angle)
+static float	find_wall(t_game *game, float angle, float distorsion)
 {
 	float	i;
 	float	j;
@@ -12,17 +12,19 @@ static float	find_wall(t_game *game, float angle)
 	j = game->player.x;
 	cosen = cos(angle * M_PI / 180);
 	sen = -sin(angle * M_PI / 180);
-	while (1)
+	printf("%f \n", distorsion);
+	while (i < (game->max_y + 1) * 64 && j < game->max_x * 64 && i > 0 && j > 0)
 	{
 		if (game->map[(int)i / 64][(int)j / 64] == '1')
 		{
-			printf ("seno:%f  angle:  %f\n", sen, angle);
+			//printf ("seno:%f  angle:  %f\n", sen, angle);
 			//return (sqrt(pow(j-game->player.x, 2.0) + pow(i-game->player.y, 2.0)) * cosen);
-			return (sqrt(pow(j-game->player.x, 2.0) + pow(i-game->player.y, 2.0)));
+			return (sqrt(pow(j - game->player.x, 2.0) + pow(i - game->player.y, 2.0)) * cos(distorsion * M_PI / 180));
 		}
 		i = i + sen;
 		j = j + cosen;
 	}
+	return(-1);
 }
 
 static void	render_wall(t_game *game, int x, int len)
@@ -65,12 +67,14 @@ void	render_raycast(t_game *game)
 		else if (angle >= 360)
 			angle -= 360;
 		//printf("angle = %f\n", angle);
-		dist = find_wall(game, angle);
-		if (dist != 0)
+		dist = find_wall(game, angle, (angle - game->player.a));
+		if (dist >= 0)
 		{
-			printf("dist = %f    ", dist);
-			size = lerp(WINDOW_HEIGHT, WINDOW_HEIGHT / 20, dist /( 7 * 64));
-			printf("size = %d\n", size);
+			//printf("dist = %f    \n", dist);
+			if (dist > 256)
+				dist = 256;
+			size = lerp(WINDOW_HEIGHT, WINDOW_HEIGHT / 20, dist /256);
+			// printf("size = %d\n", size);
 			render_wall(game, x, size);
 		}
 		x++;

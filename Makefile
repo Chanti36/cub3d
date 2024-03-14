@@ -7,6 +7,7 @@ NAME = cub3d
 
 SRCS = 	main.c							\
 		input.c							\
+		update.c						\
 		parse/parse.c					\
 		parse/read_file.c				\
 		parse/check_data.c				\

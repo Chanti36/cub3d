@@ -73,6 +73,8 @@ typedef struct s_game
 	char		*e_texture;
 	char		*w_texture;
 
+	void		*wall_texture;
+
 	t_color		floor_color;
 	t_color		celing_color;
 
@@ -98,6 +100,8 @@ void	check_map_walls(t_game *game);
 int		key_hook(int keycode, t_game *game);
 int		mouse_hook(int x, int y, t_game *game);
 int		close_win(t_game *game);
+
+int		update(t_game *game);
 
 //Render
 int		render(t_game *game);

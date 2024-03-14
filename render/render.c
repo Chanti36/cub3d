@@ -48,10 +48,11 @@ static void	draw_minimap_tile(int x, int y, t_game *game)
 		{
 			if (game->map[y][x] == '1')
 				put_pixel_to_image(game, i_x + 10 + (x * 10), i_y + 10 + (y * 10), white);
-			else if (game->map[y][x] == '0')
+			else if (game->map[y][x + 1] != '\0' )//HARCODEAO
 				put_pixel_to_image(game, i_x + 10 + (x * 10), i_y + 10 + (y * 10), black);
-			else if (game->map[y][x] != ' ')
+			if (y == (int)game->player.y / 64 && x == (int)game->player.x / 64)
 				put_pixel_to_image(game, i_x + 10 + (x * 10), i_y + 10 + (y * 10), red);
+			//put_pixel_to_image(game, game->player.x / 64 + 10, game->player.y / 64 + 10, red);
 			i_x++;
 		}
 		i_y++;
@@ -62,6 +63,11 @@ static void	draw_minimap(t_game *game)
 {
 	int	x;
 	int	y;
+
+	t_color red;
+	red.R = 255;
+	red.G = 0;
+	red.B = 0;
 
 	y = 0;
 	while (game->map[y])
@@ -99,12 +105,12 @@ static void	draw_bg(t_game *game)
 
 int	render(t_game *game)
 {
-	mlx_clear_window(game->mlx, game->win);
+	update(game);
 
+	mlx_clear_window(game->mlx, game->win);
 	draw_bg(game);
 	render_raycast(game);
 	draw_minimap(game);
-
 	mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
 	return (0);
 }
