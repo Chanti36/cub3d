@@ -13,7 +13,7 @@
 # define BUFFER_SIZE 42
 # define WINDOW_WIDTH 1080
 # define WINDOW_HEIGHT 720
-
+# define PLANK_CONST 50000
 enum
 {
 	KEY_A		= 0,

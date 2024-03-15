@@ -33,7 +33,7 @@
 void	move(t_game *game, int dir)
 {
 	if (game->player.speed < game->player.max_speed)
-		game->player.speed = 64;
+		game->player.speed = 10;
 	else
 		(game->player.speed = game->player.max_speed);
 
