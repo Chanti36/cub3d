@@ -16,7 +16,6 @@ static void	movement(t_game *game)
 		game->player.x = 32;
 	if (game->player.x > game->max_x * 64)
 		game->player.x = game->max_x * 64 - 32;
-
 	if (game->player.y < 0)
 		game->player.y = 32;
 	if (game->player.y > game->max_y * 64)
@@ -25,6 +24,8 @@ static void	movement(t_game *game)
 int	update(t_game *game)
 {
 	movement(game);
-	game->player.speed = 0;
+	game->player.speed -= game->player.max_speed / game->player.speed;
+	if (game->player.speed < 0)
+		game->player.speed = 0;
 	return(0);
 }

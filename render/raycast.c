@@ -12,15 +12,10 @@ static float	find_wall(t_game *game, float angle, float distorsion)
 	j = game->player.x;
 	cosen = cos(angle * M_PI / 180);
 	sen = -sin(angle * M_PI / 180);
-	//printf("%f \n", distorsion);
 	while (i < (game->max_y + 1) * 64 && j < game->max_x * 64 && i > 0 && j > 0)
 	{
 		if (game->map[(int)i / 64][(int)j / 64] == '1')
-		{
-			//printf ("seno:%f  angle:  %f\n", sen, angle);
-			//return (sqrt(pow(j-game->player.x, 2.0) + pow(i-game->player.y, 2.0)) * cosen);
 			return (sqrt(pow(j - game->player.x, 2.0) + pow(i - game->player.y, 2.0)) * cos(distorsion * M_PI / 180));
-		}
 		i = i + sen;
 		j = j + cosen;
 	}
@@ -57,27 +52,21 @@ void	render_raycast(t_game *game)
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
-		//angle_lerp = -45 + ((x / WINDOW_WIDTH) * 90);
-		//angle = game->player.a + angle_lerp;
-
 		angle = lerp(game->player.a + 25, \
 		game->player.a - 25, (float)x / (float)WINDOW_WIDTH);
 		if (angle < 0)
 			angle += 360;
 		else if (angle >= 360)
 			angle -= 360;
-		//printf("angle = %f\n", angle);
 		float diff = angle - game->player.a;
 		if (diff < 0)
 			diff *=-1;
 		dist = find_wall(game, angle, diff);
 		if (dist >= 0)
 		{
-			//printf("dist = %f    \n", dist);
 			if (dist > 1024)
 				dist = 1024;
-			size = lerp(WINDOW_HEIGHT, WINDOW_HEIGHT / 10, dist /1024);
-			printf("size = %f\n", dist);
+			//size = lerp(WINDOW_HEIGHT, WINDOW_HEIGHT / 10, dist /1024);
 			render_wall(game, x, PLANK_CONST / dist);
 		}
 		x++;

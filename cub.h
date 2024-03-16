@@ -53,7 +53,6 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	a;
-	float	v_a;
 	int		mouse_x;
 	int		mouse_y;
 	float	speed;

@@ -32,11 +32,12 @@
 
 void	move(t_game *game, int dir)
 {
-	if (game->player.speed < game->player.max_speed)
+	if (game->player.speed == 0)
 		game->player.speed = 10;
 	else
-		(game->player.speed = game->player.max_speed);
-
+		game->player.speed += game->player.max_speed / game->player.speed;
+	if (game->player.speed > game->player.max_speed)
+		game->player.speed = 10;
 	if (dir == 0)
 		game->player.v_speed = 0;
 	if (dir == 1)
@@ -45,8 +46,6 @@ void	move(t_game *game, int dir)
 		game->player.v_speed = 180;
 	if (dir == 3)
 		game->player.v_speed = -90;
-	// printf("COORD y = %f  x = %f               ", game->player.y, game->player.x);
-	// printf("CASILLA y = %d  x = %d\n", (int)game->player.y / 64, (int)game->player.x / 64);
 }
 
 static void	move_cam(t_game *game, float spd)

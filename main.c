@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:23:13 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/14 15:41:44 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:38:52 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exit_game(t_game *game)
 
 static void initialize(t_game *game)
 {
-	game->player.max_speed = 128;
+	game->player.max_speed = 24;
 	game->player.speed = 0;
 	game->player.v_speed = 0;
 }
@@ -45,6 +45,7 @@ int	main(int argc, char **argv)
 	game.mlx = mlx_init();
 	game.image = mlx_new_image(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	game.win = mlx_new_window(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "joego pero muuy guapo");
+
 
 	mlx_hook(game.win, 2, 0, key_hook, &game);
 	mlx_hook(game.win, 6, 0, mouse_hook, &game);
