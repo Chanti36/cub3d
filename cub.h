@@ -49,6 +49,15 @@ typedef struct s_color
 
 //_____________________________________________________________
 
+typedef struct s_raycast
+{
+	float	c_x;
+	float	c_y;
+	float	cosen;
+	float	sen;	
+} t_raycast;
+
+
 typedef struct s_player
 {
 	float	x;
@@ -72,6 +81,10 @@ typedef struct s_game
 	char		*s_texture;
 	char		*e_texture;
 	char		*w_texture;
+	t_color		n_color;
+	t_color		s_color;
+	t_color		e_color;
+	t_color		w_color;
 
 	void		*wall_texture;
 
@@ -83,6 +96,7 @@ typedef struct s_game
 	char		**map;
 
 	t_player	player;
+	t_raycast	ray;
 }	t_game;
 
 void	exit_game(t_game *game);
@@ -107,6 +121,8 @@ int		update(t_game *game);
 int		render(t_game *game);
 void	render_raycast(t_game *game);
 void	put_pixel_to_image(t_game *game, int x, int y,t_color color);
+
+void	render_raycast_v2(t_game *game);
 
 //Render Math
 t_vec2	find_vector(t_game *game, float player_a);

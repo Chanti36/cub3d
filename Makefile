@@ -18,6 +18,7 @@ SRCS = 	main.c							\
 		render/render.c					\
 		render/render_math.c			\
 		render/raycast.c				\
+		render/texture_raycast.c
 
 		
 #\\\\\\\\\\\\\\\\\\\\

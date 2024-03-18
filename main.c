@@ -16,9 +16,25 @@ void	exit_game(t_game *game)
 
 static void initialize(t_game *game)
 {
-	game->player.max_speed = 15;
+	game->player.max_speed = 25;
 	game->player.speed = 0;
 	game->player.v_speed = 0;
+
+	game->n_color.R = 255;
+	game->n_color.G = 0;
+	game->n_color.B = 0;
+
+	game->s_color.R = 0;
+	game->s_color.G = 0;
+	game->s_color.B = 255;
+
+	game->w_color.R = 255;
+	game->w_color.G = 0;
+	game->w_color.B = 255;
+
+	game->e_color.R = 0;
+	game->e_color.G = 255;
+	game->e_color.B = 0;
 }
 
 int	main(int argc, char **argv)
