@@ -33,11 +33,11 @@
 void	move(t_game *game, int dir)
 {
 	if (game->player.speed == 0)
-		game->player.speed = 10;
+		game->player.speed = 5;
 	else
-		game->player.speed += game->player.max_speed / game->player.speed;
+		game->player.speed += game->player.max_speed / game->player.speed - 1;
 	if (game->player.speed > game->player.max_speed)
-		game->player.speed = 10;
+		game->player.speed = game->player.max_speed;
 	if (dir == 0)
 		game->player.v_speed = 0;
 	if (dir == 1)
@@ -59,22 +59,26 @@ static void	move_cam(t_game *game, float spd)
 
 int	mouse_hook(int x, int y, t_game *game)
 {
-	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
-		return (game->player.mouse_x = 0, game->player.mouse_y = 0, 0);
-	if (!game->player.mouse_x && !game->player.mouse_y)
-	{
-		game->player.mouse_x = x;
-		game->player.mouse_y = y;
-		return (0);
-	}
-	if (x < game->player.mouse_x)
+	//if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
+	//	return (game->player.mouse_x = 0, game->player.mouse_y = 0, 0);
+	//if (!game->player.mouse_x && !game->player.mouse_y)
+	//{
+	//	game->player.mouse_x = x;
+	//	game->player.mouse_y = y;
+	//	return (0);
+	//}
+
+	if (x < WINDOW_WIDTH/2)
 		move_cam(game, -lerp(0, 200, \
-		(float)(x - game->player.mouse_x) / (float)WINDOW_WIDTH));
+		(float)(x - WINDOW_WIDTH/2) / (float)WINDOW_WIDTH));
 	else
 		move_cam(game, lerp(0, 200, \
-		-(float)(x - game->player.mouse_x) / (float)WINDOW_WIDTH));
-	game->player.mouse_x = x;
-	game->player.mouse_y = y;
+		-(float)(x - WINDOW_WIDTH/2) / (float)WINDOW_WIDTH));
+
+	//game->player.mouse_x = x;
+	//game->player.mouse_y = y;
+
+	mlx_mouse_move(game->win, WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
 	return (0);
 }
 

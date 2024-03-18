@@ -46,7 +46,6 @@ void	render_raycast(t_game *game)
 	int		x;
 	float	angle;
 	float	dist;
-	int		size;
 	int angle_lerp;
 
 	x = 0;
@@ -66,7 +65,6 @@ void	render_raycast(t_game *game)
 		{
 			if (dist > 1024)
 				dist = 1024;
-			//size = lerp(WINDOW_HEIGHT, WINDOW_HEIGHT / 10, dist /1024);
 			render_wall(game, x, PLANK_CONST / dist);
 		}
 		x++;

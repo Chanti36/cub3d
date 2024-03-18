@@ -1,7 +1,7 @@
 #ifndef CUB_H
 # define CUB_H
 
-# include <mlx.h>
+//# include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -9,6 +9,7 @@
 # include <math.h>
 
 # include "libft/libft.h"
+# include "mlx/mlx.h"
 
 # define BUFFER_SIZE 42
 # define WINDOW_WIDTH 1080
@@ -65,7 +66,7 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	void		*image;
-
+	void		*ui;
 
 	char		*n_texture;
 	char		*s_texture;

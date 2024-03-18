@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS =
 INCLUDES = -I/opt/X11/include -Imlx
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -Lmlx/ -lmlx -framework OpenGL -framework AppKit
 
 NAME = cub3d
 
@@ -27,11 +27,14 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME) 
 
-$(NAME): $(OBJS) libft/libft.a
+$(NAME): $(OBJS) libft/libft.a mlx/mlx.a
 	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME) -Llibft/ -lft -lm
 
 libft/libft.a:
 	make -C libft/
+
+mlx/mlx.a:
+	make -C mlx/
 
 %.o: %.c
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
@@ -39,6 +42,7 @@ libft/libft.a:
 clean:
 	rm -rf $(OBJS)
 	make -C libft/ clean
+	make -C mlx/ clean
 
 fclean: clean
 	rm -rf $(NAME)

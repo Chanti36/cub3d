@@ -112,5 +112,6 @@ int	render(t_game *game)
 	render_raycast(game);
 	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->ui, WINDOW_WIDTH / 2 - 422, WINDOW_HEIGHT - 152);
 	return (0);
 }
