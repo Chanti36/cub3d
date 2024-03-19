@@ -9,15 +9,15 @@ static int	fill_texture(t_game *game, char *str)
 	if (!data)
 		return (1);
 	if (!data[1])
-		return (free(data), 1);
-	if (ft_strncmp(str, "NO", 2))
-		game->n_texture = data[1];
-	if (ft_strncmp(str, "SO", 2))
-		game->s_texture = data[1];
-	if (ft_strncmp(str, "WE", 2))
-		game->w_texture = data[1];
-	if (ft_strncmp(str, "EA", 2))
-		game->e_texture = data[1];
+		return (free_strs(data), 1);
+	if (!ft_strncmp(str, "NO", 2))
+		game->n_texture = ft_substr(data[1], 0, ft_strlen(data[1]) - 1);
+	else if (!ft_strncmp(str, "SO", 2))
+		game->s_texture = ft_substr(data[1], 0, ft_strlen(data[1]) - 1);
+	else if (!ft_strncmp(str, "WE", 2))
+		game->w_texture = ft_substr(data[1], 0, ft_strlen(data[1]) - 1);
+	else if (!ft_strncmp(str, "EA", 2))
+		game->e_texture = ft_substr(data[1], 0, ft_strlen(data[1]) - 1);
 	free_strs(data);
 	return (0);
 }

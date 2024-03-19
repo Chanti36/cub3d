@@ -21,6 +21,34 @@ void put_pixel_to_image(t_game *game, int x, int y, t_color color)
 	image[pixel_position] = createRGB(color.R, color.G, color.B) & 0x0000FF;
 }
 
+t_color	pixel_on_img(int x, int y, void *img)
+{
+	//t_color	pingo;
+
+	//pingo.R = img[y * 64 + x * 32 / 8 + 2];
+	//pingo.G = img[y * 64 + x * 32 / 8 + 1];
+	//pingo.B = img[y * 64 + x * 32 / 8];
+	//return (pingo);
+
+	t_color color;
+
+	int	bits_per_pixel;
+	int	size_line;
+	int	endian;
+	
+
+	char *image = mlx_get_data_addr(img, &bits_per_pixel, &size_line, &endian);
+	if (!image)
+		printf("dsad\n");
+		
+	int pixel_position = (y * size_line) + (x * (bits_per_pixel / 8));
+
+	color.R = image[pixel_position + 2];
+	color.B = image[pixel_position + 1];
+	color.G = image[pixel_position];
+	return (color);
+}
+
 static void	draw_minimap_tile(int x, int y, t_game *game)
 {
 	int	i_x;

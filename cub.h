@@ -42,9 +42,9 @@ typedef struct s_gnl
 
 typedef struct s_color
 {
-	int	R;
-	int	G;
-	int	B;
+	unsigned int	R;
+	unsigned int	G;
+	unsigned int	B;
 }	t_color;
 
 //_____________________________________________________________
@@ -76,6 +76,10 @@ typedef struct s_game
 	void		*win;
 	void		*image;
 	void		*ui;
+	void		*n_tex;
+	void		*s_tex;
+	void		*w_tex;
+	void		*e_tex;
 
 	char		*n_texture;
 	char		*s_texture;
@@ -121,7 +125,7 @@ int		update(t_game *game);
 int		render(t_game *game);
 void	render_raycast(t_game *game);
 void	put_pixel_to_image(t_game *game, int x, int y,t_color color);
-
+t_color	pixel_on_img(int x, int y, void *img);
 void	render_raycast_v2(t_game *game);
 
 //Render Math
