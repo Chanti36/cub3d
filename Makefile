@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I/opt/X11/include -Imlx
 MLX_FLAGS = -Lmlx/ -lmlx -framework OpenGL -framework AppKit
 
@@ -17,8 +17,8 @@ SRCS = 	main.c							\
 		parse/gnl/get_next_line_utils.c	\
 		render/render.c					\
 		render/render_math.c			\
-		render/raycast.c				\
-		render/texture_raycast.c
+		render/texture_raycast.c		\
+		render/pixel_img.c
 
 		
 #\\\\\\\\\\\\\\\\\\\\

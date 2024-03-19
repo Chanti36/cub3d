@@ -1,6 +1,52 @@
 
 #include "../cub.h"
 
+void	check_char_aux(t_game *game, int i, int j, int *flag)
+{
+	if (game->map[i][j] != '1' && game->map[i][j] != '0' && \
+	game->map[i][j] != 'N' && game->map[i][j] != 'S' && \
+	game->map[i][j] != 'E' && game->map[i][j] != 'W' && \
+	game->map[i][j] != ' ')
+	{
+		printf("caracter invalido\n");
+		exit (1);
+	}
+	if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || \
+		game->map[i][j] == 'E' || game->map[i][j] == 'W')
+	{
+		game->player.y = (i * 64) + 32;
+		game->player.x = (j * 64) + 32;
+		game->player.a = 90;
+		if (*flag)
+		{
+			printf("caracter de personaje repetido\n");
+			exit (1);
+		}
+		*flag = 1;
+	}
+}
+
+void	fill_map_line(t_gnl *str_map, char**new_map, int x, int i)
+{
+	int	j;
+	int	flag;
+
+	j = 0;
+	flag = 0;
+	while (j < x)
+	{
+		if (str_map->content[j] && str_map->content[j] != '\n' && flag != 1)
+			new_map[i][j] = str_map->content[j];
+		else
+		{
+			flag = 1;
+			new_map[i][j] = ' ';
+		}
+		++j;
+	}
+	new_map[i][j] = '\0';
+}
+
 static int	space_in_perimeter(char **map, int x, int y)
 {
 	if (map[y - 1][x - 1] == ' ' || \

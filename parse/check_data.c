@@ -37,15 +37,15 @@ static int	fill_color(t_game *game, char *str)
 	color_vals = ft_split(data[1], ',');
 	if (ft_strncmp(str, "F", 1))
 	{
-		game->floor_color.R = ft_atoi(color_vals[0]);
-		game->floor_color.G = ft_atoi(color_vals[1]);
-		game->floor_color.B = ft_atoi(color_vals[2]);
+		game->floor_color.r = ft_atoi(color_vals[0]);
+		game->floor_color.g = ft_atoi(color_vals[1]);
+		game->floor_color.b = ft_atoi(color_vals[2]);
 	}
 	if (ft_strncmp(str, "C", 1))
 	{
-		game->celing_color.R = ft_atoi(color_vals[0]);
-		game->celing_color.G = ft_atoi(color_vals[1]);
-		game->celing_color.B = ft_atoi(color_vals[2]);
+		game->celing_color.r = ft_atoi(color_vals[0]);
+		game->celing_color.g = ft_atoi(color_vals[1]);
+		game->celing_color.b = ft_atoi(color_vals[2]);
 	}
 	return (free_strs(data), free_strs(color_vals), 0);
 }
@@ -68,13 +68,13 @@ static int	fill_data(t_game *game, char *str)
 
 static int	check_fill(t_game *game)
 {
-	if ((game->celing_color.R < 0 || game->celing_color.R > 255) || \
-		(game->celing_color.G < 0 || game->celing_color.G > 255) || \
-		(game->celing_color.B < 0 || game->celing_color.B > 255))
+	if ((game->celing_color.r < 0 || game->celing_color.r > 255) || \
+		(game->celing_color.g < 0 || game->celing_color.g > 255) || \
+		(game->celing_color.b < 0 || game->celing_color.b > 255))
 		return (1);
-	if ((game->floor_color.R < 0 || game->floor_color.R > 255) || \
-		(game->floor_color.G < 0 || game->floor_color.G > 255) || \
-		(game->floor_color.B < 0 || game->floor_color.B > 255))
+	if ((game->floor_color.r < 0 || game->floor_color.r > 255) || \
+		(game->floor_color.g < 0 || game->floor_color.g > 255) || \
+		(game->floor_color.b < 0 || game->floor_color.b > 255))
 		return (1);
 	if (!(game->n_texture) || \
 		!(game->s_texture) || \
