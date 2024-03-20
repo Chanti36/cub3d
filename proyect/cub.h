@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:41 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 18:51:40 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:03:22 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_raycast
 	float	cosen;
 	float	sen;
 	void	*last_tex;
+	void	*new_tex;
 }	t_raycast;
 
 typedef struct s_player

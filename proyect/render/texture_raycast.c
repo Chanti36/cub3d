@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   texture_raycast.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:55:23 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 18:52:41 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:07:34 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static void	render_wall(t_game *game, int x, int len, float dist, void *tex)
+static void	render_wall(t_game *game, int x, int len, float dist)
 {
 	float		i_y;
 	float		size;
@@ -26,7 +26,7 @@ static void	render_wall(t_game *game, int x, int len, float dist, void *tex)
 		lerp_val = 63 * ((i_y - (size / 2)) / (WINDOW_HEIGHT - (size)));
 		if (lerp_val < 0)
 			lerp_val = 0;
-		color = pixel_on_img(dist, lerp_val, tex, 0);
+		color = pixel_on_img(dist, lerp_val, game->ray.new_tex, 0);
 		if (i_y < WINDOW_HEIGHT && i_y > -1)
 			put_pixel_to_image(game, x, i_y, color);
 		i_y++;
@@ -35,11 +35,11 @@ static void	render_wall(t_game *game, int x, int len, float dist, void *tex)
 	}
 }
 
-static void	wall_dir(t_game *game, int x, float dist, float angle)
+static void	wall_dir(t_game *game, int x, float dist)
 {
 	float	aux;
 	void	*tex;
-angle = 0;
+
 	if (dist < 0)
 		return ;
 	aux = 0;
@@ -50,10 +50,9 @@ angle = 0;
 		game->ray.c_x += 1;
 	if (game->ray.sen < 0)
 		game->ray.c_y += 1;
-		
 	if ((int)game->ray.c_y % 64 == 0 && (int)game->ray.c_x % 64 == 0)
 	{
-		tex = game->ray.last_tex;
+		game->ray.new_tex = game->ray.last_tex;
 		aux = (int)game->ray.c_x % 64;
 	}
 	else if ((int)game->ray.c_y % 64 == 0)
@@ -61,9 +60,9 @@ angle = 0;
 		if (game->ray.sen < 0)
 			game->ray.c_y -= 1;
 		if (game->ray.c_y > game->player.y)
-			tex = game->n_tex;
+			game->ray.new_tex = game->n_tex;
 		else
-			tex = game->s_tex;
+			game->ray.new_tex = game->s_tex;
 		aux = (int)game->ray.c_x % 64;
 	}
 	else
@@ -71,33 +70,19 @@ angle = 0;
 		if (game->ray.cosen < 0)
 			game->ray.c_x -= 1;
 		if (game->ray.c_x > game->player.x)
-			tex = game->w_tex;
+			game->ray.new_tex = game->w_tex;
 		else
-			tex = game->e_tex;
+			game->ray.new_tex = game->e_tex;
 		aux = (int)game->ray.c_y % 64;
 	}
-
-
-	//angulo 45 - 135 norte 			DEP
-	//if (angle <= 135 && angle >= 45)
-	//	tex = game->s_tex;
-	//else if (angle <= 225 && angle >= 135)
-	//	tex = game->w_tex;
-	//else if (angle <= 315 && angle >= 225)
-	//	tex = game->n_tex;
-	//else //if (angle <= 45 || angle >= 315)
-	//	tex = game->e_tex;
-	
-	//if ((int)game->ray.c_y % 64 == 0)
-	//	aux = (int)game->ray.c_x % 64;
-	//else
-	//	aux = (int)game->ray.c_y % 64;
-
-	game->ray.last_tex = tex;
+	game->ray.last_tex = game->ray.new_tex;
 	if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D')
-		render_wall(game, x, PLANK_CONST / dist, aux, game->door_tex);
+	{
+		game->ray.new_tex = game->door_tex;
+		render_wall(game, x, PLANK_CONST / dist, aux);
+	}
 	else
-		render_wall(game, x, PLANK_CONST / dist, aux, tex);
+		render_wall(game, x, PLANK_CONST / dist, aux);
 }
 
 static void	find_wall(t_game *game, float angle, float distorsion, int x)
@@ -120,7 +105,7 @@ static void	find_wall(t_game *game, float angle, float distorsion, int x)
 			dist = sqrt(pow(game->ray.c_x - game->player.x, 2.0) + \
 			pow(game->ray.c_y - game->player.y, 2.0)) \
 			* distorsion_cos;
-			wall_dir(game, x, dist ,angle);
+			wall_dir(game, x, dist);
 			break ;
 		}
 		game->ray.c_y = game->ray.c_y + game->ray.sen;
