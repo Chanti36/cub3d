@@ -1,6 +1,12 @@
 
 #include "cub.h"
 
+int	close_win(t_game *game)
+{
+	exit_game(game);
+	return (0);
+}
+
 static int	collision_check(t_game *game, float move_x, float move_y)
 {
 	int	space_x;
@@ -14,12 +20,15 @@ static int	collision_check(t_game *game, float move_x, float move_y)
 		space_y = -10;
 	else
 		space_y = 10;
-	if (game->map[(int)(game->player.y + move_y + space_y) / 64][(int)(game->player.x + move_x + space_y) / 64] == '1')
+	if (game->map[(int)(game->player.y + move_y + space_y) / 64] \
+		[(int)(game->player.x + move_x + space_x) / 64] == '1' || \
+		game->map[(int)(game->player.y + move_y + space_y) / 64] \
+		[(int)(game->player.x + move_x + space_x) / 64] == 'D')
 	{
-		/*if ((int)(game->player.y + move_y) % 64 == 0)
+		if ((int)(game->player.y + move_y) % 64 == 0)
 			game->player.y += move_y;
 		else if ((int)(game->player.x + move_x) % 64 == 0)
-			game->player.x += move_x;*/
+			game->player.x += move_x;
 		return (1);
 	}
 	return (0);

@@ -16,7 +16,7 @@ static void	draw_minimap_tile(int x, int y, t_game *game, t_color white)
 		i_x = 0;
 		while (i_x++ < 10)
 		{
-			if (game->map[y][x] == '1')
+			if (game->map[y][x] == '1' || game->map[y][x] == 'D')
 				put_pixel_to_image(game, i_x + 10 + (x * 10), \
 				i_y + 10 + (y * 10), white);
 			else if (game->map[y][x + 1] != '\0' )
@@ -83,4 +83,3 @@ int	render(t_game *game)
 	WINDOW_WIDTH / 2 - 422, WINDOW_HEIGHT - 152);
 	return (0);
 }
-	//render_raycast(game);

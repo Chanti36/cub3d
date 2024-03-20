@@ -6,7 +6,7 @@ void	check_char_aux(t_game *game, int i, int j, int *flag)
 	if (game->map[i][j] != '1' && game->map[i][j] != '0' && \
 	game->map[i][j] != 'N' && game->map[i][j] != 'S' && \
 	game->map[i][j] != 'E' && game->map[i][j] != 'W' && \
-	game->map[i][j] != ' ')
+	game->map[i][j] != ' ' && game->map[i][j] != 'D' )
 	{
 		printf("caracter invalido\n");
 		exit (1);

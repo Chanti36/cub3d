@@ -95,6 +95,7 @@ typedef struct s_game
 	t_color		floor_color;
 	t_color		celing_color;
 	int			collision;
+	int			eye;
 
 	int			max_x;
 	int			max_y;
@@ -121,7 +122,6 @@ void			check_char_aux(t_game *game, int i, int j, int *flag);
 int				key_hook(int keycode, t_game *game);
 int				mouse_hook(int x, int y, t_game *game);
 int				close_win(t_game *game);
-
 int				update(t_game *game);
 
 //Render

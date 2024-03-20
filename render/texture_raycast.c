@@ -1,7 +1,7 @@
 
 #include "../cub.h"
 
-static void	render_wall(t_game *game, int x, int len, float dist)
+static void	render_wall(t_game *game, int x, int len, float dist, void *tex)
 {
 	float		i_y;
 	float		size;
@@ -15,7 +15,7 @@ static void	render_wall(t_game *game, int x, int len, float dist)
 		lerp_val = 63 * ((i_y - (size / 2)) / (WINDOW_HEIGHT - (size)));
 		if (lerp_val < 0)
 			lerp_val = 0;
-		color = pixel_on_img(dist, lerp_val, game->n_tex, 0);
+		color = pixel_on_img(dist, lerp_val, tex, 0);
 		if (i_y < WINDOW_HEIGHT && i_y > -1)
 			put_pixel_to_image(game, x, i_y, color);
 		i_y++;
@@ -27,11 +27,12 @@ static void	render_wall(t_game *game, int x, int len, float dist)
 static void	wall_dir(t_game *game, int x, float dist)
 {
 	float	aux;
-	//t_color color;
+	void *tex;
 
 	if (dist < 0)
 		return ;
 	aux = 0;
+	tex = NULL;
 	if (dist > 1024)
 		dist = 1024;
 	if (game->ray.cosen < 0)
@@ -40,31 +41,30 @@ static void	wall_dir(t_game *game, int x, float dist)
 		game->ray.c_y += 1;
 	if ((int)game->ray.c_y % 64 == 0 && (int)game->ray.c_x % 64 == 0)
 	{
-		//color.R = 0;
-		//color.G = 0;
-		//color.B = 0;
+		game->ray.c_y -= 65;
+		game->ray.c_x -= 65;
 	}
-	else if ((int)game->ray.c_y % 64 == 0)
+	if ((int)game->ray.c_y % 64 == 0)
 	{
 		if (game->ray.sen < 0)
 			game->ray.c_y -= 1;
-		//if (game->ray.c_y > game->player.y)
-		//	color  = game->n_color;
-		//else
-		//	color = game->s_color;
+		if (game->ray.c_y > game->player.y)
+			tex  = game->n_tex;
+		else
+			tex = game->s_tex;
 		aux = (int)game->ray.c_x % 64;
 	}
 	else
 	{
 		if (game->ray.cosen < 0)
 			game->ray.c_x -= 1;
-		//if (game->ray.c_x > game->player.x)
-		//	color = game->w_color;
-		//else
-		//	color = game->e_color;
+		if (game->ray.c_x > game->player.x)
+			tex = game->w_tex;
+		else
+			tex = game->e_tex;
 		aux = (int)game->ray.c_y % 64;
 	}
-	render_wall(game, x, PLANK_CONST / dist, aux);
+	render_wall(game, x, PLANK_CONST / dist, aux, tex);
 }
 
 static void	find_wall(t_game *game, float angle, float distorsion, int x)
@@ -80,7 +80,8 @@ static void	find_wall(t_game *game, float angle, float distorsion, int x)
 	while (game->ray.c_y < (game->max_y + 1) * 64 && \
 	game->ray.c_x < game->max_x * 64 && game->ray.c_y > 0 && game->ray.c_x > 0)
 	{
-		if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == '1')
+		if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == '1' || \
+			game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D')
 		{
 			dist = sqrt(pow(game->ray.c_x - game->player.x, 2.0) + \
 			pow(game->ray.c_y - game->player.y, 2.0)) \
@@ -102,8 +103,8 @@ void	render_raycast_v2(t_game *game)
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
-		angle = lerp(game->player.a + 25, \
-		game->player.a - 25, (float)x / (float)WINDOW_WIDTH);
+		angle = lerp(game->player.a + 25 + game->eye, \
+		game->player.a - 25 - game->eye, (float)x / (float)WINDOW_WIDTH);
 		if (angle < 0)
 			angle += 360;
 		else if (angle >= 360)

@@ -1,34 +1,33 @@
 
 #include "cub.h"
 
-//int	can_move(t_game *game, int dir)
-//{
-//	int	x;
-//	int	y;
-
-//	x = game->player.x;
-//	y = game->player.y;
-//	if (dir == 0)
-//		y -= 1;
-//	if (dir == 1)
-//	{
-//		game->player.dir = -1;
-//		x -= 1;
-//	}
-//	if (dir == 2)
-//		y += 1;
-//	if (dir == 3)
-//	{
-//		game->player.dir = 1;
-//		x += 1;
-//	}
-//	if (game->map.map[y][x] == '1' ||
-//		//game->map.map[y][x] == '!' ||
-//		(game->map.map[y][x] == 'E' &&
-//		game->map.can_exit != 1))
-//		return (-1);
-//	return (0);
-//}
+static void	open_door(t_game *game)
+{
+	if (game->map[((int)game->player.y / 64) + 1] \
+					[(int)game->player.x / 64] && \
+		game->map[((int)game->player.y / 64) + 1] \
+		[(int)game->player.x / 64] == 'D')
+		game->map[((int)game->player.y / 64) + 1] \
+		[(int)game->player.x / 64] = '0';
+	else if (game->map[((int)game->player.y / 64) - 1] \
+	[(int)game->player.x / 64] && \
+			game->map[((int)game->player.y / 64) - 1] \
+			[(int)game->player.x / 64] == 'D')
+		game->map[((int)game->player.y / 64) - 1] \
+		[(int)game->player.x / 64] = '0';
+	else if (game->map[((int)game->player.y / 64)] \
+	[((int)game->player.x / 64) + 1] && \
+			game->map[((int)game->player.y / 64)] \
+			[((int)game->player.x / 64) + 1] == 'D')
+		game->map[((int)game->player.y / 64)] \
+		[((int)game->player.x / 64) + 1] = '0';
+	else if (game->map[((int)game->player.y / 64)] \
+	[((int)game->player.x / 64) - 1] && \
+			game->map[((int)game->player.y / 64)] \
+			[((int)game->player.x / 64) - 1] == 'D')
+		game->map[((int)game->player.y / 64)] \
+		[((int)game->player.x / 64) - 1] = '0';
+}
 
 void	move(t_game *game, int dir)
 {
@@ -41,17 +40,11 @@ void	move(t_game *game, int dir)
 	if (dir == 0)
 		game->player.v_speed = 0;
 	if (dir == 1)
-	{
 		game->player.v_speed = 90;
-		//game->player.speed -= 2.5;
-	}
 	if (dir == 2)
 		game->player.v_speed = 180;
 	if (dir == 3)
-	{
 		game->player.v_speed = 270;
-		//game->player.speed -= 2.5;
-	}
 }
 
 static void	move_cam(t_game *game, float spd)
@@ -87,14 +80,22 @@ int	key_hook(int keycode, t_game *game)
 	else if (keycode == KEY_D || keycode == KEY_RIGHT)
 		move(game, 3);
 	else if (keycode == 35)
-		game->collision = 1;
+	{
+		if (game->collision)
+			game->collision = 0;
+		else
+			game->collision = 1;
+	}
+	else if (keycode == 31)
+		open_door(game);
+	else if (keycode == 32)
+	{
+		if (game->eye)
+			game->eye = 0;
+		else
+			game->eye = 20;
+	}
 	else if (keycode == KEY_ESCAPE)
 		exit_game(game);
-	return (0);
-}
-
-int	close_win(t_game *game)
-{
-	exit_game(game);
 	return (0);
 }
