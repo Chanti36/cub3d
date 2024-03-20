@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture_raycast.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/20 16:55:23 by sgil-moy          #+#    #+#             */
+/*   Updated: 2024/03/20 18:52:41 by sgil-moy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../cub.h"
 
@@ -24,11 +35,11 @@ static void	render_wall(t_game *game, int x, int len, float dist, void *tex)
 	}
 }
 
-static void	wall_dir(t_game *game, int x, float dist)
+static void	wall_dir(t_game *game, int x, float dist, float angle)
 {
 	float	aux;
-	void *tex;
-
+	void	*tex;
+angle = 0;
 	if (dist < 0)
 		return ;
 	aux = 0;
@@ -39,17 +50,18 @@ static void	wall_dir(t_game *game, int x, float dist)
 		game->ray.c_x += 1;
 	if (game->ray.sen < 0)
 		game->ray.c_y += 1;
+		
 	if ((int)game->ray.c_y % 64 == 0 && (int)game->ray.c_x % 64 == 0)
 	{
-		game->ray.c_y -= 65;
-		game->ray.c_x -= 65;
+		tex = game->ray.last_tex;
+		aux = (int)game->ray.c_x % 64;
 	}
-	if ((int)game->ray.c_y % 64 == 0)
+	else if ((int)game->ray.c_y % 64 == 0)
 	{
 		if (game->ray.sen < 0)
 			game->ray.c_y -= 1;
 		if (game->ray.c_y > game->player.y)
-			tex  = game->n_tex;
+			tex = game->n_tex;
 		else
 			tex = game->s_tex;
 		aux = (int)game->ray.c_x % 64;
@@ -64,7 +76,28 @@ static void	wall_dir(t_game *game, int x, float dist)
 			tex = game->e_tex;
 		aux = (int)game->ray.c_y % 64;
 	}
-	render_wall(game, x, PLANK_CONST / dist, aux, tex);
+
+
+	//angulo 45 - 135 norte 			DEP
+	//if (angle <= 135 && angle >= 45)
+	//	tex = game->s_tex;
+	//else if (angle <= 225 && angle >= 135)
+	//	tex = game->w_tex;
+	//else if (angle <= 315 && angle >= 225)
+	//	tex = game->n_tex;
+	//else //if (angle <= 45 || angle >= 315)
+	//	tex = game->e_tex;
+	
+	//if ((int)game->ray.c_y % 64 == 0)
+	//	aux = (int)game->ray.c_x % 64;
+	//else
+	//	aux = (int)game->ray.c_y % 64;
+
+	game->ray.last_tex = tex;
+	if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D')
+		render_wall(game, x, PLANK_CONST / dist, aux, game->door_tex);
+	else
+		render_wall(game, x, PLANK_CONST / dist, aux, tex);
 }
 
 static void	find_wall(t_game *game, float angle, float distorsion, int x)
@@ -80,13 +113,14 @@ static void	find_wall(t_game *game, float angle, float distorsion, int x)
 	while (game->ray.c_y < (game->max_y + 1) * 64 && \
 	game->ray.c_x < game->max_x * 64 && game->ray.c_y > 0 && game->ray.c_x > 0)
 	{
-		if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == '1' || \
+		if (game->map[(int)game->ray.c_y / 64] \
+		[(int)game->ray.c_x / 64] == '1' || \
 			game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D')
 		{
 			dist = sqrt(pow(game->ray.c_x - game->player.x, 2.0) + \
 			pow(game->ray.c_y - game->player.y, 2.0)) \
 			* distorsion_cos;
-			wall_dir(game, x, dist);
+			wall_dir(game, x, dist ,angle);
 			break ;
 		}
 		game->ray.c_y = game->ray.c_y + game->ray.sen;

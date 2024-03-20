@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pixel_img.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/20 16:54:59 by sgil-moy          #+#    #+#             */
+/*   Updated: 2024/03/20 16:55:00 by sgil-moy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 unsigned long	create_rgb(int r, int g, int b)
 {
@@ -46,7 +57,7 @@ t_color	pixel_on_img(int x, int y, void *img, int endian)
 	image = mlx_get_data_addr(img, &bits_per_pixel, &size_line, &endian);
 	pixel_position = (y * size_line) + (x * (bits_per_pixel / 8));
 	color.r = image[pixel_position + 2];
-	color.b = image[pixel_position + 1];
-	color.g = image[pixel_position];
+	color.g = image[pixel_position + 1];
+	color.b = image[pixel_position];
 	return (color);
 }

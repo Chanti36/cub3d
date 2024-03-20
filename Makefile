@@ -5,24 +5,21 @@ MLX_FLAGS = -Lmlx/ -lmlx -framework OpenGL -framework AppKit
 
 NAME = cub3d
 
-SRCS = 	main.c							\
-		input.c							\
-		update.c						\
-		parse/parse.c					\
-		parse/read_file.c				\
-		parse/check_data.c				\
-		parse/check_map.c				\
-		parse/check_map_aux.c			\
-		parse/gnl/get_next_line.c 		\
-		parse/gnl/get_next_line_utils.c	\
-		render/render.c					\
-		render/render_math.c			\
-		render/texture_raycast.c		\
-		render/pixel_img.c
-
-		
-#\\\\\\\\\\\\\\\\\\\\
-
+SRCS = 	proyect/main.c							\
+		proyect/input.c							\
+		proyect/mouse.c 						\
+		proyect/update.c						\
+		proyect/parse/parse.c					\
+		proyect/parse/read_file.c				\
+		proyect/parse/check_data.c				\
+		proyect/parse/check_map.c				\
+		proyect/parse/check_map_aux.c			\
+		proyect/parse/gnl/get_next_line.c 		\
+		proyect/parse/gnl/get_next_line_utils.c	\
+		proyect/render/render.c					\
+		proyect/render/render_math.c			\
+		proyect/render/texture_raycast.c		\
+		proyect/render/pixel_img.c
 
 OBJS = $(SRCS:.c=.o)
 

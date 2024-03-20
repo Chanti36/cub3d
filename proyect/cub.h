@@ -1,15 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/20 16:32:41 by sgil-moy          #+#    #+#             */
+/*   Updated: 2024/03/20 18:51:40 by sgil-moy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB_H
 # define CUB_H
 
-//# include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
 
-# include "libft/libft.h"
-# include "mlx/mlx.h"
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
 
 # define BUFFER_SIZE 42
 # define WINDOW_WIDTH 1080
@@ -22,6 +33,9 @@ enum
 	KEY_S		= 1,
 	KEY_D		= 2,
 	KEY_W		= 13,
+	KEY_P		= 35,
+	KEY_O		= 31,
+	KEY_U		= 32,
 	KEY_ESCAPE	= 53,
 	KEY_LEFT	= 123,
 	KEY_RIGHT	= 124,
@@ -56,6 +70,7 @@ typedef struct s_raycast
 	float	c_y;
 	float	cosen;
 	float	sen;
+	void	*last_tex;
 }	t_raycast;
 
 typedef struct s_player
@@ -80,6 +95,7 @@ typedef struct s_game
 	void		*s_tex;
 	void		*w_tex;
 	void		*e_tex;
+	void		*door_tex;
 
 	char		*n_texture;
 	char		*s_texture;
