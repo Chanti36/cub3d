@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:53:56 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 10:32:14 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:21:42 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-void	leaks(void)
-{
-	system("leaks -q cub3d");
-}
 
 void	exit_game(t_game *game)
 {
@@ -74,7 +69,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	atexit(leaks);
 	if (argc != 2)
 		return (printf("BAD INPUT\n"), 1);
 	parse(argv[1], &game);

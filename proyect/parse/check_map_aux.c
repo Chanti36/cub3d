@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_aux.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:36 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:54:38 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:23:15 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	check_perimeter(t_game *game, int x, int y)
 	{
 		if (game->map[y][x] != '1' && game->map[y][x] != ' ')
 		{
-			printf ("ta mal2 %d %d", x, y);
+			printf ("Error, invalid border x: %d y: %d", x, y);
 			exit(1);
 		}
 	}
@@ -90,7 +90,7 @@ static void	check_perimeter(t_game *game, int x, int y)
 	{
 		if (space_in_perimeter(game->map, x, y))
 		{
-			printf ("ta mal1 %d %d", x, y);
+			printf ("Error, invalid border x: %d y: %d", x, y);
 			exit(1);
 		}
 	}
@@ -102,7 +102,6 @@ void	check_map_walls(t_game *game)
 	int	x;
 
 	y = 0;
-	printf("check map\n");
 	while (game->map[y])
 	{
 		x = 0;
@@ -113,5 +112,4 @@ void	check_map_walls(t_game *game)
 		}
 		y++;
 	}
-	printf("WALLs guxi\n");
 }

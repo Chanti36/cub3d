@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:40 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:54:42 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:22:17 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,3 @@ void	check_map(t_gnl *str_map, t_game *game)
 		y++;
 	}
 }
-//funcion para printear el mapa
-	// printf("-------------------------asdasd---------------------\n");
-	// while (game->map[y])
-	// {
-	// 	x = 0;
-	// 	while (game->map[y][x])
-	// 	{
-	// 		printf("%c", game->map[y][x]);
-	// 		x++;
-	// 	}
-	// 	printf("\n");
-	// 	y++;
-	// }
-	// printf("-------------------------asdasd---------------------\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:31 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:54:33 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:22:02 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,4 @@ void	check_data(t_gnl *str_map, t_game *game)
 		printf("WRONG DATA\n");
 		exit (1);
 	}
-	printf("NICE DATA\n");
 }
