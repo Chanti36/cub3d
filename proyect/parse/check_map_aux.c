@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:36 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 12:23:15 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:50:29 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_char_aux(t_game *game, int i, int j, int *flag)
 	{
 		game->player.y = (i * 64) + 32;
 		game->player.x = (j * 64) + 32;
-		game->player.a = 90;
+		game->player.a = get_player_angle(game->map[i][j]);
 		if (*flag)
 		{
 			printf("caracter de personaje repetido\n");

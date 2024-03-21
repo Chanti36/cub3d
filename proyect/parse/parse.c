@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:45 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:54:47 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:37:03 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,15 @@ void	parse(char *file, t_game *game)
 	check_data(data, game);
 	check_map(data, game);
 	free_list(data);
+	if (!game->n_texture || !game->s_texture || \
+	!game->w_texture || !game->e_texture)
+	{
+		printf("Error: not all textures\n");
+		exit (1);
+	}
+	if (game->player.a == -1)
+	{
+		printf("Error: there's no player\n");
+		exit (1);
+	}
 }

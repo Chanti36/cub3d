@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I/opt/X11/include -Imlx
 MLX_FLAGS = -Lmlx/ -lmlx -framework OpenGL -framework AppKit
 
-NAME = cub3d
+NAME = cub3D
 
 SRCS = 	proyect/main.c							\
 		proyect/input.c							\
@@ -25,13 +25,13 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME) 
 
-$(NAME): $(OBJS) libft/libft.a mlx/mlx.a
+$(NAME): $(OBJS) libft/libft.a mlx/libmlx.a
 	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME) -Llibft/ -lft -lm
 
 libft/libft.a:
 	make -C libft/
 
-mlx/mlx.a:
+mlx/libmlx.a:
 	make -C mlx/
 
 %.o: %.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:55:43 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:53:43 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:51:12 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,16 @@ void	move(t_game *game, int dir)
 
 static void	key_hook_aux(int keycode, t_game *game)
 {
-	if (keycode == KEY_P)
+	if (keycode == KEY_SPACE)
 	{
 		if (game->collision)
 			game->collision = 0;
 		else
 			game->collision = 1;
 	}
-	else if (keycode == KEY_O)
+	else if (keycode == KEY_E)
 		open_door(game);
-	else if (keycode == KEY_U)
+	else if (keycode == KEY_Q)
 	{
 		if (game->eye)
 			game->eye = 0;

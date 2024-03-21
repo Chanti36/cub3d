@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:41 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 09:44:19 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:50:45 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ enum
 	KEY_S		= 1,
 	KEY_D		= 2,
 	KEY_W		= 13,
-	KEY_P		= 35,
-	KEY_O		= 31,
-	KEY_U		= 32,
+	KEY_SPACE	= 49,
+	KEY_E		= 14,
+	KEY_Q		= 12,
 	KEY_ESCAPE	= 53,
 	KEY_LEFT	= 123,
 	KEY_RIGHT	= 124,
@@ -155,6 +155,7 @@ void			render_raycast_v2(t_game *game);
 
 //Render Math
 float			lerp(float a, float b, float f);
+int				get_player_angle(char c);
 
 //color
 t_color			get_color(int red, int green, int blue);

@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:53:56 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 12:21:42 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:46:08 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ static void	initialize(t_game *game)
 	game->collision = 0;
 	game->eye = 0;
 	initialize_textures(game);
+	if (!game->n_tex || !game->s_tex || !game->e_tex || !game->w_tex)
+	{
+		printf ("Error: wrong path to texture");
+		exit (1);
+	}
 }
 
 int	main(int argc, char **argv)

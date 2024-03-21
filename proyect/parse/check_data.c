@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:31 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 12:22:02 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:35:53 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static int	fill_color(t_game *game, char *str)
 	if (!data[1])
 		return (free_strs(data), 1);
 	color_vals = ft_split(data[1], ',');
-	if (ft_strncmp(str, "F", 1))
+	if (ft_strncmp(str, "C", 1))
 	{
 		game->floor_color.r = ft_atoi(color_vals[0]);
 		game->floor_color.g = ft_atoi(color_vals[1]);
 		game->floor_color.b = ft_atoi(color_vals[2]);
 	}
-	if (ft_strncmp(str, "C", 1))
+	if (ft_strncmp(str, "F", 1))
 	{
 		game->celing_color.r = ft_atoi(color_vals[0]);
 		game->celing_color.g = ft_atoi(color_vals[1]);
@@ -100,6 +100,11 @@ void	check_data(t_gnl *str_map, t_game *game)
 	t_gnl	*i;
 
 	i = str_map;
+	game->n_texture = NULL;
+	game->s_texture = NULL;
+	game->w_texture = NULL;
+	game->e_texture = NULL;
+	game->player.a = -1;
 	while (i)
 	{
 		if (fill_data(game, i->content) == 1)
