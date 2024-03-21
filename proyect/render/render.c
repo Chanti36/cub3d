@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 16:55:17 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:55:19 by sgil-moy         ###   ########.fr       */
+/*   Created: 2024/03/21 10:34:16 by sgil-moy          #+#    #+#             */
+/*   Updated: 2024/03/21 10:36:20 by sgil-moy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,27 @@ static void	draw_bg(t_game *game)
 
 int	render(t_game *game)
 {
+	static int	frame;
+
+	frame += 1;
 	update(game);
 	mlx_clear_window(game->mlx, game->win);
 	draw_bg(game);
 	render_raycast_v2(game);
 	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->ui, \
+	mlx_put_image_to_window(game->mlx, game->win, game->ui_tex3, \
 	WINDOW_WIDTH / 2 - 422, WINDOW_HEIGHT - 152);
+	if ((frame - 20) / 2 == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->ui_tex2, \
+		WINDOW_WIDTH / 2 - 422, WINDOW_HEIGHT - 152);
+	else if ((frame - 20) / 2 == 1)
+		mlx_put_image_to_window(game->mlx, game->win, game->ui_tex1, \
+		WINDOW_WIDTH / 2 - 422, WINDOW_HEIGHT - 152);
+	else if ((frame - 20) / 2 == 2)
+		mlx_put_image_to_window(game->mlx, game->win, game->ui_tex0, \
+		WINDOW_WIDTH / 2 - 422, WINDOW_HEIGHT - 152);
+	else if ((frame - 20) / 2 == 3)
+		frame = 0;
 	return (0);
 }

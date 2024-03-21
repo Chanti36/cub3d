@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_raycast.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:55:23 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 19:07:34 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/21 10:42:47 by sgil-moy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,35 @@ static void	render_wall(t_game *game, int x, int len, float dist)
 	}
 }
 
+static float	get_tex(t_game *game)
+{
+	if ((int)game->ray.c_y % 64 == 0 && (int)game->ray.c_x % 64 == 0)
+	{
+		game->ray.new_tex = game->ray.last_tex;
+		return ((int)game->ray.c_x % 64);
+	}
+	else if ((int)game->ray.c_y % 64 == 0)
+	{
+		if (game->ray.sen < 0)
+			game->ray.c_y -= 1;
+		if (game->ray.c_y > game->player.y)
+			game->ray.new_tex = game->n_tex;
+		else
+			game->ray.new_tex = game->s_tex;
+		return ((int)game->ray.c_x % 64);
+	}
+	else
+	{
+		if (game->ray.cosen < 0)
+			game->ray.c_x -= 1;
+		if (game->ray.c_x > game->player.x)
+			game->ray.new_tex = game->w_tex;
+		else
+			game->ray.new_tex = game->e_tex;
+		return ((int)game->ray.c_y % 64);
+	}
+}
+
 static void	wall_dir(t_game *game, int x, float dist)
 {
 	float	aux;
@@ -50,31 +79,7 @@ static void	wall_dir(t_game *game, int x, float dist)
 		game->ray.c_x += 1;
 	if (game->ray.sen < 0)
 		game->ray.c_y += 1;
-	if ((int)game->ray.c_y % 64 == 0 && (int)game->ray.c_x % 64 == 0)
-	{
-		game->ray.new_tex = game->ray.last_tex;
-		aux = (int)game->ray.c_x % 64;
-	}
-	else if ((int)game->ray.c_y % 64 == 0)
-	{
-		if (game->ray.sen < 0)
-			game->ray.c_y -= 1;
-		if (game->ray.c_y > game->player.y)
-			game->ray.new_tex = game->n_tex;
-		else
-			game->ray.new_tex = game->s_tex;
-		aux = (int)game->ray.c_x % 64;
-	}
-	else
-	{
-		if (game->ray.cosen < 0)
-			game->ray.c_x -= 1;
-		if (game->ray.c_x > game->player.x)
-			game->ray.new_tex = game->w_tex;
-		else
-			game->ray.new_tex = game->e_tex;
-		aux = (int)game->ray.c_y % 64;
-	}
+	aux = get_tex(game);
 	game->ray.last_tex = game->ray.new_tex;
 	if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D')
 	{

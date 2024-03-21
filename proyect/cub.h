@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:41 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 19:03:22 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/21 09:44:19 by sgil-moy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ typedef struct s_game
 	void		*win;
 	void		*image;
 	void		*ui;
+	void		*ui_tex0;
+	void		*ui_tex1;
+	void		*ui_tex2;
+	void		*ui_tex3;
 	void		*n_tex;
 	void		*s_tex;
 	void		*w_tex;
