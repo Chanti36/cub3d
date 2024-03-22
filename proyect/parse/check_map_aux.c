@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:36 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 16:50:29 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:18:40 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,11 @@ void	fill_map_line(t_gnl *str_map, char**new_map, int x, int i)
 
 static int	space_in_perimeter(char **map, int x, int y)
 {
-	if (map[y - 1][x - 1] == ' ' || \
-		map[y - 1][x] == ' ' || \
-		map[y - 1][x + 1] == ' ' || \
+	if (map[y - 1][x] == ' ' || \
 		map[y][x - 1] == ' ' || \
 		map[y][x] == ' ' || \
 		map[y][x + 1] == ' ' || \
-		map[y + 1][x - 1] == ' ' || \
-		map[y + 1][x] == ' ' || \
-		map[y + 1][x + 1] == ' ')
+		map[y + 1][x] == ' ')
 	{
 		if (map[y][x] != '1' && map[y][x] != ' ')
 			return (1);
