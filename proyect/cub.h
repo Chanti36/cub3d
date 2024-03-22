@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:41 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 17:50:45 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:24:00 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,13 @@ typedef struct s_raycast
 	void	*new_tex;
 }	t_raycast;
 
+typedef struct s_door
+{
+	int	x;
+	int	y;
+	int	open;
+}	t_door;
+
 typedef struct s_player
 {
 	float	x;
@@ -117,6 +124,7 @@ typedef struct s_game
 	t_color		celing_color;
 	int			collision;
 	int			eye;
+	int			num_doors;
 
 	int			max_x;
 	int			max_y;
@@ -124,6 +132,7 @@ typedef struct s_game
 
 	t_player	player;
 	t_raycast	ray;
+	t_door		*doors;
 }	t_game;
 
 void			exit_game(t_game *game);
@@ -138,7 +147,9 @@ void			check_data(t_gnl *str_map, t_game *game);
 void			check_map(t_gnl *str_map, t_game *game);
 void			check_map_walls(t_game *game);
 void			check_char_aux(t_game *game, int i, int j, int *flag);
-
+void			initialize_doors(t_game *game);
+void			open_door(t_game *game);
+int				door_is_closed(t_game *game, int y, int x);
 //Input
 int				key_hook(int keycode, t_game *game);
 int				mouse_hook(int x, int y, t_game *game);

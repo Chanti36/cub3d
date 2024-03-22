@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:34:16 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 10:36:20 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:43:45 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+static int	mini_door(t_game *game, int y, int x)
+{
+	int	i;
+
+	i = 0;
+	if (game->map[y][x] != 'D')
+		return (0);
+	while (i < game->num_doors)
+	{
+		if (game->doors[i].x == x && game->doors[i].y == y)
+		{
+			if (!game->doors[i].open)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 static void	draw_minimap_tile(int x, int y, t_game *game, t_color white)
 {
@@ -27,7 +46,7 @@ static void	draw_minimap_tile(int x, int y, t_game *game, t_color white)
 		i_x = 0;
 		while (i_x++ < 10)
 		{
-			if (game->map[y][x] == '1' || game->map[y][x] == 'D')
+			if (game->map[y][x] == '1' || mini_door(game, y, x))
 				put_pixel_to_image(game, i_x + 10 + (x * 10), \
 				i_y + 10 + (y * 10), white);
 			else if (game->map[y][x + 1] != '\0' )

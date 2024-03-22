@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:40 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 12:22:17 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:06:58 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	check_map(t_gnl *str_map, t_game *game)
 		{
 			if (game->map[y][x] == ' ')
 				game->map[y][x] = '0';
+			else if (game->map[y][x] == 'D')
+				game->num_doors++;
 			x++;
 		}
 		y++;

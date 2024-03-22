@@ -19,7 +19,8 @@ SRCS = 	proyect/main.c							\
 		proyect/render/render.c					\
 		proyect/render/render_math.c			\
 		proyect/render/texture_raycast.c		\
-		proyect/render/pixel_img.c
+		proyect/render/pixel_img.c				\
+		proyect/render/door.c
 
 OBJS = $(SRCS:.c=.o)
 

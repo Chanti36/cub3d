@@ -6,68 +6,68 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:55:43 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 17:51:12 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:27:02 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	open_door_aux(t_game *game)
-{
-	if (game->map[((int)game->player.y / 64) + 2] \
-					[(int)game->player.x / 64] && \
-		game->map[((int)game->player.y / 64) + 2] \
-		[(int)game->player.x / 64] == 'D')
-		game->map[((int)game->player.y / 64) + 2] \
-		[(int)game->player.x / 64] = '0';
-	else if (game->map[((int)game->player.y / 64) - 2] \
-	[(int)game->player.x / 64] && \
-			game->map[((int)game->player.y / 64) - 2] \
-			[(int)game->player.x / 64] == 'D')
-		game->map[((int)game->player.y / 64) - 2] \
-		[(int)game->player.x / 64] = '0';
-	else if (game->map[((int)game->player.y / 64)] \
-	[((int)game->player.x / 64) + 2] && \
-			game->map[((int)game->player.y / 64)] \
-			[((int)game->player.x / 64) + 2] == 'D')
-		game->map[((int)game->player.y / 64)] \
-		[((int)game->player.x / 64) + 2] = '0';
-	else if (game->map[((int)game->player.y / 64)] \
-	[((int)game->player.x / 64) - 2] && \
-			game->map[((int)game->player.y / 64)] \
-			[((int)game->player.x / 64) - 2] == 'D')
-		game->map[((int)game->player.y / 64)] \
-		[((int)game->player.x / 64) - 2] = '0';
-}
+// static void	open_door_aux(t_game *game)
+// {
+// 	if (game->map[((int)game->player.y / 64) + 2] \
+// 					[(int)game->player.x / 64] && \
+// 		game->map[((int)game->player.y / 64) + 2] \
+// 		[(int)game->player.x / 64] == 'D')
+// 		game->map[((int)game->player.y / 64) + 2] \
+// 		[(int)game->player.x / 64] = '0';
+// 	else if (game->map[((int)game->player.y / 64) - 2] \
+// 	[(int)game->player.x / 64] && \
+// 			game->map[((int)game->player.y / 64) - 2] \
+// 			[(int)game->player.x / 64] == 'D')
+// 		game->map[((int)game->player.y / 64) - 2] \
+// 		[(int)game->player.x / 64] = '0';
+// 	else if (game->map[((int)game->player.y / 64)] \
+// 	[((int)game->player.x / 64) + 2] && \
+// 			game->map[((int)game->player.y / 64)] \
+// 			[((int)game->player.x / 64) + 2] == 'D')
+// 		game->map[((int)game->player.y / 64)] \
+// 		[((int)game->player.x / 64) + 2] = '0';
+// 	else if (game->map[((int)game->player.y / 64)] \
+// 	[((int)game->player.x / 64) - 2] && \
+// 			game->map[((int)game->player.y / 64)] \
+// 			[((int)game->player.x / 64) - 2] == 'D')
+// 		game->map[((int)game->player.y / 64)] \
+// 		[((int)game->player.x / 64) - 2] = '0';
+// }
 
-static void	open_door(t_game *game)
-{
-	if (game->map[((int)game->player.y / 64) + 1] \
-					[(int)game->player.x / 64] && \
-		game->map[((int)game->player.y / 64) + 1] \
-		[(int)game->player.x / 64] == 'D')
-		game->map[((int)game->player.y / 64) + 1] \
-		[(int)game->player.x / 64] = '0';
-	else if (game->map[((int)game->player.y / 64) - 1] \
-	[(int)game->player.x / 64] && \
-			game->map[((int)game->player.y / 64) - 1] \
-			[(int)game->player.x / 64] == 'D')
-		game->map[((int)game->player.y / 64) - 1] \
-		[(int)game->player.x / 64] = '0';
-	else if (game->map[((int)game->player.y / 64)] \
-	[((int)game->player.x / 64) + 1] && \
-			game->map[((int)game->player.y / 64)] \
-			[((int)game->player.x / 64) + 1] == 'D')
-		game->map[((int)game->player.y / 64)] \
-		[((int)game->player.x / 64) + 1] = '0';
-	else if (game->map[((int)game->player.y / 64)] \
-	[((int)game->player.x / 64) - 1] && \
-			game->map[((int)game->player.y / 64)] \
-			[((int)game->player.x / 64) - 1] == 'D')
-		game->map[((int)game->player.y / 64)] \
-		[((int)game->player.x / 64) - 1] = '0';
-	open_door_aux(game);
-}
+// static void	open_door(t_game *game)
+// {
+// 	if (game->map[((int)game->player.y / 64) + 1] \
+// 					[(int)game->player.x / 64] && \
+// 		game->map[((int)game->player.y / 64) + 1] \
+// 		[(int)game->player.x / 64] == 'D')
+// 		game->map[((int)game->player.y / 64) + 1] \
+// 		[(int)game->player.x / 64] = '0';
+// 	else if (game->map[((int)game->player.y / 64) - 1] \
+// 	[(int)game->player.x / 64] && \
+// 			game->map[((int)game->player.y / 64) - 1] \
+// 			[(int)game->player.x / 64] == 'D')
+// 		game->map[((int)game->player.y / 64) - 1] \
+// 		[(int)game->player.x / 64] = '0';
+// 	else if (game->map[((int)game->player.y / 64)] \
+// 	[((int)game->player.x / 64) + 1] && \
+// 			game->map[((int)game->player.y / 64)] \
+// 			[((int)game->player.x / 64) + 1] == 'D')
+// 		game->map[((int)game->player.y / 64)] \
+// 		[((int)game->player.x / 64) + 1] = '0';
+// 	else if (game->map[((int)game->player.y / 64)] \
+// 	[((int)game->player.x / 64) - 1] && \
+// 			game->map[((int)game->player.y / 64)] \
+// 			[((int)game->player.x / 64) - 1] == 'D')
+// 		game->map[((int)game->player.y / 64)] \
+// 		[((int)game->player.x / 64) - 1] = '0';
+// 	open_door_aux(game);
+// }
 
 void	move(t_game *game, int dir)
 {

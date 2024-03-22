@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:53:56 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 16:46:08 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:13:54 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exit_game(t_game *game)
 {
+	free (game->doors);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_image(game->mlx, game->image);
 	mlx_destroy_image(game->mlx, game->ui);
@@ -68,12 +69,19 @@ static void	initialize(t_game *game)
 		printf ("Error: wrong path to texture");
 		exit (1);
 	}
+	initialize_doors(game);
+}
+
+void	leaks(void)
+{
+	system ("leaks -q cub3D");
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	atexit(leaks);
 	if (argc != 2)
 		return (printf("BAD INPUT\n"), 1);
 	parse(argv[1], &game);

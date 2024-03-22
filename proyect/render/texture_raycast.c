@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_raycast.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:55:23 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 10:42:47 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:12:39 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ static void	wall_dir(t_game *game, int x, float dist)
 		game->ray.c_y += 1;
 	aux = get_tex(game);
 	game->ray.last_tex = game->ray.new_tex;
-	if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D')
+	if (game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D' && \
+	door_is_closed(game, (int)game->ray.c_y / 64, (int)game->ray.c_x / 64))
 	{
 		game->ray.new_tex = game->door_tex;
 		render_wall(game, x, PLANK_CONST / dist, aux);
@@ -104,8 +105,9 @@ static void	find_wall(t_game *game, float angle, float distorsion, int x)
 	game->ray.c_x < game->max_x * 64 && game->ray.c_y > 0 && game->ray.c_x > 0)
 	{
 		if (game->map[(int)game->ray.c_y / 64] \
-		[(int)game->ray.c_x / 64] == '1' || \
-			game->map[(int)game->ray.c_y / 64][(int)game->ray.c_x / 64] == 'D')
+		[(int)game->ray.c_x / 64] == '1' || (game->map[(int)game->ray.c_y / 64] \
+		[(int)game->ray.c_x / 64] == 'D' && door_is_closed(game, \
+		(int)game->ray.c_y / 64, (int)game->ray.c_x / 64)))
 		{
 			dist = sqrt(pow(game->ray.c_x - game->player.x, 2.0) + \
 			pow(game->ray.c_y - game->player.y, 2.0)) \
