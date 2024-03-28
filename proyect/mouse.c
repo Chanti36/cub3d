@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:37:10 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:38:55 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:30:53 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	move_cam(t_game *game, float spd)
 
 int	mouse_hook(int x, int y, t_game *game)
 {
-	(void) y;
+	if (y < 150)
+		return (0);
 	if (x < WINDOW_WIDTH / 2)
 		move_cam(game, -lerp(0, 200, \
 		(float)(x - WINDOW_WIDTH / 2) / (float)WINDOW_WIDTH));

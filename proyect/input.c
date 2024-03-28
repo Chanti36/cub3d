@@ -6,68 +6,11 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:55:43 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 18:27:02 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:09:38 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-// static void	open_door_aux(t_game *game)
-// {
-// 	if (game->map[((int)game->player.y / 64) + 2] \
-// 					[(int)game->player.x / 64] && \
-// 		game->map[((int)game->player.y / 64) + 2] \
-// 		[(int)game->player.x / 64] == 'D')
-// 		game->map[((int)game->player.y / 64) + 2] \
-// 		[(int)game->player.x / 64] = '0';
-// 	else if (game->map[((int)game->player.y / 64) - 2] \
-// 	[(int)game->player.x / 64] && \
-// 			game->map[((int)game->player.y / 64) - 2] \
-// 			[(int)game->player.x / 64] == 'D')
-// 		game->map[((int)game->player.y / 64) - 2] \
-// 		[(int)game->player.x / 64] = '0';
-// 	else if (game->map[((int)game->player.y / 64)] \
-// 	[((int)game->player.x / 64) + 2] && \
-// 			game->map[((int)game->player.y / 64)] \
-// 			[((int)game->player.x / 64) + 2] == 'D')
-// 		game->map[((int)game->player.y / 64)] \
-// 		[((int)game->player.x / 64) + 2] = '0';
-// 	else if (game->map[((int)game->player.y / 64)] \
-// 	[((int)game->player.x / 64) - 2] && \
-// 			game->map[((int)game->player.y / 64)] \
-// 			[((int)game->player.x / 64) - 2] == 'D')
-// 		game->map[((int)game->player.y / 64)] \
-// 		[((int)game->player.x / 64) - 2] = '0';
-// }
-
-// static void	open_door(t_game *game)
-// {
-// 	if (game->map[((int)game->player.y / 64) + 1] \
-// 					[(int)game->player.x / 64] && \
-// 		game->map[((int)game->player.y / 64) + 1] \
-// 		[(int)game->player.x / 64] == 'D')
-// 		game->map[((int)game->player.y / 64) + 1] \
-// 		[(int)game->player.x / 64] = '0';
-// 	else if (game->map[((int)game->player.y / 64) - 1] \
-// 	[(int)game->player.x / 64] && \
-// 			game->map[((int)game->player.y / 64) - 1] \
-// 			[(int)game->player.x / 64] == 'D')
-// 		game->map[((int)game->player.y / 64) - 1] \
-// 		[(int)game->player.x / 64] = '0';
-// 	else if (game->map[((int)game->player.y / 64)] \
-// 	[((int)game->player.x / 64) + 1] && \
-// 			game->map[((int)game->player.y / 64)] \
-// 			[((int)game->player.x / 64) + 1] == 'D')
-// 		game->map[((int)game->player.y / 64)] \
-// 		[((int)game->player.x / 64) + 1] = '0';
-// 	else if (game->map[((int)game->player.y / 64)] \
-// 	[((int)game->player.x / 64) - 1] && \
-// 			game->map[((int)game->player.y / 64)] \
-// 			[((int)game->player.x / 64) - 1] == 'D')
-// 		game->map[((int)game->player.y / 64)] \
-// 		[((int)game->player.x / 64) - 1] = '0';
-// 	open_door_aux(game);
-// }
 
 void	move(t_game *game, int dir)
 {
@@ -96,9 +39,9 @@ static void	key_hook_aux(int keycode, t_game *game)
 		else
 			game->collision = 1;
 	}
-	else if (keycode == KEY_E)
+	if (keycode == KEY_E)
 		open_door(game);
-	else if (keycode == KEY_Q)
+	if (keycode == KEY_Q)
 	{
 		if (game->eye)
 			game->eye = 0;
@@ -109,17 +52,29 @@ static void	key_hook_aux(int keycode, t_game *game)
 		exit_game(game);
 }
 
-int	key_hook(int keycode, t_game *game)
+int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_W || keycode == KEY_UP)
-		move(game, 0);
-	else if (keycode == KEY_A || keycode == KEY_LEFT)
-		move(game, 1);
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		move(game, 2);
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-		move(game, 3);
-	else
-		key_hook_aux(keycode, game);
+		game->w_press = 1;
+	if (keycode == KEY_A || keycode == KEY_LEFT)
+		game->a_press = 1;
+	if (keycode == KEY_S || keycode == KEY_DOWN)
+		game->s_press = 1;
+	if (keycode == KEY_D || keycode == KEY_RIGHT)
+		game->d_press = 1;
+	key_hook_aux(keycode, game);
+	return (0);
+}
+
+int	key_release(int keycode, t_game *game)
+{
+	if (keycode == KEY_W || keycode == KEY_UP)
+		game->w_press = 0;
+	if (keycode == KEY_A || keycode == KEY_LEFT)
+		game->a_press = 0;
+	if (keycode == KEY_S || keycode == KEY_DOWN)
+		game->s_press = 0;
+	if (keycode == KEY_D || keycode == KEY_RIGHT)
+		game->d_press = 0;
 	return (0);
 }

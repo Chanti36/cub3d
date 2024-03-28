@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:41 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/22 11:24:00 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:08:54 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,11 @@ typedef struct s_game
 	int			max_y;
 	char		**map;
 
+	int			w_press;
+	int			s_press;
+	int			d_press;
+	int			a_press;
+
 	t_player	player;
 	t_raycast	ray;
 	t_door		*doors;
@@ -151,10 +156,12 @@ void			initialize_doors(t_game *game);
 void			open_door(t_game *game);
 int				door_is_closed(t_game *game, int y, int x);
 //Input
-int				key_hook(int keycode, t_game *game);
+int				key_press(int keycode, t_game *game);
+int				key_release(int keycode, t_game *game);
 int				mouse_hook(int x, int y, t_game *game);
 int				close_win(t_game *game);
 int				update(t_game *game);
+void			move(t_game *game, int dir);
 
 //Render
 //void	render_raycast(t_game *game);

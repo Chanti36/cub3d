@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:53:56 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/22 12:13:54 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:09:49 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	main(int argc, char **argv)
 	WINDOW_HEIGHT, "joego pero muuy guapo");
 	mlx_mouse_move(game.win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	mlx_mouse_hide();
-	mlx_hook(game.win, 2, 0, key_hook, &game);
+	mlx_hook(game.win, 2, 0, key_press, &game);
+	mlx_hook(game.win, 3, 0, key_release, &game);
 	mlx_hook(game.win, 6, 0, mouse_hook, &game);
 	mlx_hook(game.win, 17, 0, close_win, &game);
 	mlx_loop_hook(game.mlx, render, &game);

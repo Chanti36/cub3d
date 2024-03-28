@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:07 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:54:11 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:09:11 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@ int	close_win(t_game *game)
 {
 	exit_game(game);
 	return (0);
+}
+
+static void	fluid_move(t_game *game)
+{
+	if (game->w_press)
+		move(game, 0);
+	else if (game->a_press)
+		move(game, 1);
+	else if (game->s_press)
+		move(game, 2);
+	else if (game->d_press)
+		move(game, 3);
 }
 
 static int	collision_check(t_game *game, float move_x, float move_y)
@@ -74,6 +86,7 @@ static void	movement(t_game *game)
 
 int	update(t_game *game)
 {
+	fluid_move(game);
 	movement(game);
 	game->player.speed -= game->player.max_speed / game->player.speed;
 	if (game->player.speed < 0)

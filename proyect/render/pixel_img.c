@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_img.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgil-moy <sgil-moy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:59 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/20 16:55:00 by sgil-moy         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:53:45 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	put_pixel_to_image(t_game *game, int x, int y, t_color color)
 	char	*image;
 	int		pixel_position;
 
+	if (y > WINDOW_HEIGHT || y < 0 || x > WINDOW_WIDTH || x < 0)
+		return ;
 	image = mlx_get_data_addr(game->image, \
 	&bits_per_pixel, &size_line, &endian);
 	pixel_position = (y * size_line) + (x * (bits_per_pixel / 8));

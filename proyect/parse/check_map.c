@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:40 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/21 18:06:58 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:07:57 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void	check_map(t_gnl *str_map, t_game *game)
 	int	x;
 	int	y;
 
-	y = 0;
 	measure_map(str_map, game);
 	check_map_char(game);
 	check_map_walls(game);
+	game->num_doors = 0;
 	y = 0;
 	while (y < game->max_y)
 	{
