@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:41 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/27 13:08:54 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:36:57 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef struct s_player
 	int		mouse_y;
 	float	speed;
 	float	v_speed;
-	float	max_speed;
 }	t_player;
 
 typedef struct s_game

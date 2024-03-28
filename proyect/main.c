@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:53:56 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/27 13:09:49 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:37:01 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	initialize(t_game *game)
 	int		size;
 
 	size = 0;
-	game->player.max_speed = 10;
 	game->player.speed = 0;
 	game->player.v_speed = 0;
 	game->collision = 0;

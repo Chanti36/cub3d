@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:55:23 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/27 13:04:13 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/28 20:14:19 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	wall_dir(t_game *game, int x, float dist)
 	float	aux;
 	void	*tex;
 
-	if (dist < 0)
+	if (dist < 12)
 		return ;
 	aux = 0;
 	tex = NULL;

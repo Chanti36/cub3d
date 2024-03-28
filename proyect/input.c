@@ -6,26 +6,43 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:55:43 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/27 13:09:38 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:40:09 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+static void	get_player_vector(t_game *game)
+{
+	if (game->a_press)
+		game->player.v_speed = 45;
+	else if (game->d_press)
+		game->player.v_speed = 315;
+	else
+		game->player.v_speed = 0;
+}
+
 void	move(t_game *game, int dir)
 {
-	if (game->player.speed == 0)
-		game->player.speed = 10;
-	else
-		game->player.speed += game->player.max_speed / game->player.speed - 1;
-	if (game->player.speed > game->player.max_speed)
-		game->player.speed = game->player.max_speed;
+	game->player.speed = 7;
 	if (dir == 0)
-		game->player.v_speed = 0;
-	if (dir == 1)
-		game->player.v_speed = 90;
+		get_player_vector(game);
 	if (dir == 2)
-		game->player.v_speed = 180;
+	{
+		if (game->a_press)
+			game->player.v_speed = 135;
+		else if (game->d_press)
+			game->player.v_speed = 225;
+		else
+			game->player.v_speed = 180;
+	}
+	if (dir == 1)
+	{
+		if (game->s_press)
+			game->player.v_speed = 135;
+		else
+			game->player.v_speed = 90;
+	}
 	if (dir == 3)
 		game->player.v_speed = 270;
 }

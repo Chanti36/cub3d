@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:07 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/27 13:09:11 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:36:47 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ static int	collision_check(t_game *game, float move_x, float move_y)
 		space_y = 10;
 	if (game->map[(int)(game->player.y + move_y + space_y) / 64] \
 		[(int)(game->player.x + move_x + space_x) / 64] == '1' || \
-		game->map[(int)(game->player.y + move_y + space_y) / 64] \
-		[(int)(game->player.x + move_x + space_x) / 64] == 'D')
+		(game->map[(int)(game->player.y + move_y + space_y) / 64] \
+		[(int)(game->player.x + move_x + space_x) / 64] == 'D' && \
+		door_is_closed(game, (game->player.y + move_y + space_y) / 64, \
+		(game->player.x + move_x + space_x) / 64)))
 	{
 		if ((int)(game->player.y + move_y) % 64 == 0)
 			game->player.y += move_y;
@@ -88,8 +90,6 @@ int	update(t_game *game)
 {
 	fluid_move(game);
 	movement(game);
-	game->player.speed -= game->player.max_speed / game->player.speed;
-	if (game->player.speed < 0)
-		game->player.speed = 0;
+	game->player.speed = 0;
 	return (0);
 }
