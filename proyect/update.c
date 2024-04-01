@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:07 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/28 19:36:47 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/04/01 17:12:30 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ static void	fluid_move(t_game *game)
 	else if (game->s_press)
 		move(game, 2);
 	else if (game->d_press)
-		move(game, 3);
+			move(game, 3);
+	if (game->player.a > 360)
+		game->player.a -= 360;
+	if (game->player.a < 0)
+		game->player.a += 360;
 }
 
 static int	collision_check(t_game *game, float move_x, float move_y)

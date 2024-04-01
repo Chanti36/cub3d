@@ -6,7 +6,7 @@
 /*   By: egomez-g <egomez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:53:56 by sgil-moy          #+#    #+#             */
-/*   Updated: 2024/03/28 19:37:01 by egomez-g         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:19:07 by egomez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,10 @@ static void	initialize(t_game *game)
 	initialize_doors(game);
 }
 
-void	leaks(void)
-{
-	system ("leaks -q cub3D");
-}
-
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	atexit(leaks);
 	if (argc != 2)
 		return (printf("BAD INPUT\n"), 1);
 	parse(argv[1], &game);
